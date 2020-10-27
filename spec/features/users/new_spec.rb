@@ -38,6 +38,7 @@ describe "as a vistor" do
       click_button "Submit"
 
       expect(current_path).to eq('/profile')
+      expect(page).to have_content("Logged in as Mike Dao.")
     end
   end
 end
