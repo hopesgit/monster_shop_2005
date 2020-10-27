@@ -12,6 +12,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(session[:user_id])
+    if session[:user_id]
+      flash[:success] = "Logged in as #{@user.name}."
+    end 
   end
 
   private
