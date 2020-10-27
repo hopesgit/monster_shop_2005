@@ -17,7 +17,7 @@ describe "as a vistor" do
       expect(page).to have_field("Street Address")
       expect(page).to have_field("City")
       expect(page).to have_field("State")
-      expect(page).to have_field("Zip Code")
+      expect(page).to have_field("Zip")
       expect(page).to have_field("Email Address")
       expect(page).to have_field("Password")
       expect(page).to have_field("Confirm Password")

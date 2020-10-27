@@ -8,7 +8,7 @@ RSpec.describe User, type: :model do
     it {should validate_presence_of(:state)}
     it {should validate_presence_of(:zip)}
     it {should validate_presence_of(:email_address)}
-    it {should validate_uniqness_of(:email_address)}
-    it {should validate_presence_of(:password)} 
+    it {should validate_uniqueness_of(:email_address)}
+    it {should validate_presence_of(:password)}
   end
 end
