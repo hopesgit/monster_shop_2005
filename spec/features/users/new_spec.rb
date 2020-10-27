@@ -9,5 +9,18 @@ describe "as a vistor" do
       click_link 'Register'
       expect(current_path).to eq('/register')
     end
+
+    it "has a form asking for new user details" do
+      visit '/register'
+
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Street Address")
+      expect(page).to have_field("City")
+      expect(page).to have_field("State")
+      expect(page).to have_field("Zip Code")
+      expect(page).to have_field("Email Address")
+      expect(page).to have_field("Password")
+      expect(page).to have_field("Confirm Password")
+    end
   end
 end
