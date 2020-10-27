@@ -22,5 +22,22 @@ describe "as a vistor" do
       expect(page).to have_field("Password")
       expect(page).to have_field("Confirm Password")
     end
+
+    it "has a form asking for new user details" do
+      visit '/register'
+
+      fill_in "Name", with: "Mike Dao"
+      fill_in "Street Address", with: "100 Main"
+      fill_in "City", with: "Denver"
+      fill_in "State", with: "CO"
+      fill_in "Zip", with: "80002"
+      fill_in "Email Address", with: "mike@gmail"
+      fill_in "Password", with: "password"
+      fill_in "Confirm Password", with: "password"
+
+      click_button "Submit"
+
+      expect(current_path).to eq('/profile')
+    end
   end
 end
