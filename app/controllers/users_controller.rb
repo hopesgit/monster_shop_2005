@@ -22,10 +22,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    current_user
-    if session[:user_id]
-      flash[:success] = "Logged in as #{@user.name}."
-    end
+    flash[:success] = "Logged in as #{current_user.name}."
   end
 
   private
