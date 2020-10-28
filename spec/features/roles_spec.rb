@@ -3,7 +3,6 @@ require "rails_helper"
 describe "At various user levels" do
   describe "As a Visitor" do
     it "gives you a 404 error if you go to these pages when not logged in" do
-      allow_any_instance_of(ApplicationController).to receive(:current_user)
 
       visit "/merchant"
 
@@ -35,13 +34,59 @@ describe "At various user levels" do
       fill_in("Password", with: "#{user_2.password}")
       click_button("Submit")
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user)
-
       visit "/merchant"
 
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
 
       visit "/admin"
+
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+    end
+  end
+
+  describe "As a Merchant" do
+    it "it can't access admin links" do
+      user_3 = User.create!(name: "Hope",
+                            street_address: "222 Hope Ln",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80112,
+                            email_address: "hope@example.com",
+                            password: "supersecret",
+                            role: 1)
+      visit "/login"
+
+      fill_in("Email Address", with: "#{user_3.email_address}")
+      fill_in("Password", with: "#{user_3.password}")
+      click_on "Submit"
+
+      visit "/admin"
+
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+    end
+  end
+
+  describe "As an Admin" do
+    it "can't access merchant links or the cart" do
+      user_4 = User.create!(name: "Todd",
+                            street_address: "999 Nine Ln",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80112,
+                            email_address: "todd2@example.com",
+                            password: "abcd",
+                            role: 2)
+      visit "/login"
+
+      fill_in("Email Address", with: "#{user_4.email_address}")
+      fill_in("Password", with: "#{user_4.password}")
+      click_on "Submit"
+
+      visit "/merchant"
+
+      expect(page).to have_content("The page you were looking for doesn't exist (404)")
+
+      visit "/cart"
 
       expect(page).to have_content("The page you were looking for doesn't exist (404)")
     end
