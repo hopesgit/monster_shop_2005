@@ -61,13 +61,6 @@ end
 describe "as a vistor" do
   describe "user new page" do
     it "has a register link in the nav bar" do
-      user_1 = User.create!(name: "Todd",
-                            street_address: "123 lane",
-                            city: "Denver",
-                            state: "CO",
-                            zip: 80111,
-                            email_address: "Todd@example.com",
-                            password: "superEasyPZ")
       user_2 = User.create!(name: "George",
                             street_address: "123 lane",
                             city: "Denver",

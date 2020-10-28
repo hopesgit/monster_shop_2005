@@ -5,7 +5,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if !User.where(email_address: @user.email_address).empty?
+    if params[:password] != params[:confirm_password]
+      flash.now[:error] = "Passwords must match"
+      render :new
+    elsif !User.where(email_address: @user.email_address).empty?
       flash.now[:error] = "Please select a unique email!"
       render :new
     elsif @user.save
