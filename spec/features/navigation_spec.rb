@@ -198,4 +198,51 @@ RSpec.describe 'Site Navigation' do
       expect(current_path).to eq("/merchant")
     end
   end
+
+  describe "As an Admin" do
+    before :each do
+      @user_4 = User.create!(name: "Todd",
+                            street_address: "999 Nine Ln",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80112,
+                            email_address: "todd2@example.com",
+                            password: "abcd",
+                            role: 2)
+      visit "/login"
+
+      fill_in("Email Address", with: "#{@user_4.email_address}")
+      fill_in("Password", with: "#{@user_4.password}")
+      click_on "Submit"
+    end
+
+    it "has this stuff" do
+      visit "/items"
+
+      expect(page).to have_link("Home")
+      expect(page).to have_link("Items")
+      expect(page).to have_link("Merchants")
+      expect(page).to_not have_link("Cart")
+      expect(page).to have_link("Log Out")
+      expect(page).to have_link("Profile")
+      expect(page).to have_link("Dashboard")
+      expect(page).to have_link("All Users")
+    end
+
+    it "has an admin dashboard" do
+      visit "/"
+
+      click_link "Dashboard"
+
+      expect(current_path).to eq("/admin")
+    end
+
+    it "can see a list of all users" do
+      visit "/"
+
+      click_link "All Users"
+
+      expect(current_path).to eq("/admin/users")
+    end
+  end
 end
