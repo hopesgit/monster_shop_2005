@@ -106,4 +106,49 @@ RSpec.describe 'Site Navigation' do
       expect(current_path).to eq("/register")
     end
   end
+
+  describe "As a User" do
+    before :each do
+      @user = User.create(name: "George",
+                          street_address: "123 lane",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111,
+                          email_address: "Todd@example.com",
+                          password: "superEasyPZ")
+    end
+
+    it "Has same links as a visitor, without login or register" do
+      visit '/items'
+
+      within 'nav' do
+        expect(page).to have_link("Home")
+        expect(page).to have_link("Items")
+        expect(page).to have_link("Merchants")
+        expect(page).to have_link("Cart")
+        expect(page).to_not have_link("Login")
+        expect(page).to_not have_link("Register")
+      end
+    end
+
+    it "Has same links as visitor, with logout and profile" do
+      visit '/merchants'
+
+      within 'nav' do
+        expect(page).to have_link("Profile")
+        click_link "Profile"
+      end
+
+      expect(current_path).to eq("/profile")
+
+      visit '/items'
+
+      within 'nav' do
+        expect(page).to have_link("Profile")
+        click_link "Profile"
+      end
+
+      expect(current_path).to eq("/profile")
+    end
+  end
 end

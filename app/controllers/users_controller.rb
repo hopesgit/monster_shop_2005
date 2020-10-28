@@ -22,14 +22,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    current_user
     if session[:user_id]
       flash[:success] = "Logged in as #{@user.name}."
     end
-  end
-
-  def login
-    # @user = User.where(email_address: params[:email_address])
   end
 
   private

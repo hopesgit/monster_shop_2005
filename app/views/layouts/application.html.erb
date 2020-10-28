@@ -11,11 +11,17 @@
   <body>
     <nav class = "topnav">
       <%= link_to "Home", "/" %>
-      <%= link_to "Register", "/register" %>
-      <%= link_to "Log In", "/login" %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+      <%= binding.pry %>
+      <% if !session[:user] %>
+        <%= link_to "Register", "/register" %>
+        <%= link_to "Log In", "/login" %>
+      <% elsif session[:user].role == user %>
+        <%= link_to "Profile", "/profile" %>
+        <%= link_to "Log Out", "/logout" %>
+      <% end %>
     </nav>
     <% flash.each do |name, msg| %>
       <div class= "<%=name%>-flash">
