@@ -28,6 +28,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def login
+    # @user = User.where(email_address: params[:email_address])
+  end
+
   private
   def user_params
     params.permit(:name, :street_address, :city, :state,

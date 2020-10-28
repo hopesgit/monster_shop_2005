@@ -71,7 +71,21 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I see a link to log in on all pages" do
+      visit '/merchants'
 
+      within 'nav' do
+        click_on "Log In"
+      end
+
+      expect(current_path).to eq("/login")
+
+      visit '/items'
+
+      within 'nav' do
+        click_on "Log In"
+      end
+
+      expect(current_path).to eq("/login")
     end
 
     it "I see a link to register on all pages" do
