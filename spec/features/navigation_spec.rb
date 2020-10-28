@@ -163,8 +163,8 @@ RSpec.describe 'Site Navigation' do
   end
 
   describe "As a merchant" do
-    it "has the User links plus a link to the merchant dashboard" do
-      user_3 = User.create!(name: "Hope",
+    before :each do
+      @user_3 = User.create!(name: "Hope",
                             street_address: "222 Hope Ln",
                             city: "Denver",
                             state: "CO",
@@ -174,10 +174,12 @@ RSpec.describe 'Site Navigation' do
                             role: 1)
       visit "/login"
 
-      fill_in("Email Address", with: "#{user_3.email_address}")
-      fill_in("Password", with: "#{user_3.password}")
+      fill_in("Email Address", with: "#{@user_3.email_address}")
+      fill_in("Password", with: "#{@user_3.password}")
       click_on "Submit"
+    end
 
+    it "has the User links plus a link to the merchant dashboard" do
       visit "/items"
 
       expect(page).to have_link("Home")
@@ -187,6 +189,13 @@ RSpec.describe 'Site Navigation' do
       expect(page).to have_link("Log Out")
       expect(page).to have_link("Profile")
       expect(page).to have_link("Dashboard")
+    end
+
+    it "clicking the Dashboard link brings me to /merchant" do
+      visit "/items"
+      click_link "Dashboard"
+
+      expect(current_path).to eq("/merchant")
     end
   end
 end
