@@ -119,7 +119,11 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "Has same links as a visitor, without login or register" do
-      visit '/items'
+      visit "/login"
+
+      fill_in "Email Address", with: "#{@user.email_address}"
+      fill_in "Password", with: "#{@user.password}"
+      click_on "Submit"
 
       within 'nav' do
         expect(page).to have_link("Home")
@@ -132,6 +136,12 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "Has same links as visitor, with logout and profile" do
+      visit "/login"
+
+      fill_in "Email Address", with: "#{@user.email_address}"
+      fill_in "Password", with: "#{@user.password}"
+      click_on "Submit"
+      
       visit '/merchants'
 
       within 'nav' do
