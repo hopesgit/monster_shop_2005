@@ -141,7 +141,7 @@ RSpec.describe 'Site Navigation' do
       fill_in "Email Address", with: "#{@user.email_address}"
       fill_in "Password", with: "#{@user.password}"
       click_on "Submit"
-      
+
       visit '/merchants'
 
       within 'nav' do
@@ -159,6 +159,12 @@ RSpec.describe 'Site Navigation' do
       end
 
       expect(current_path).to eq("/profile")
+    end
+  end
+
+  describe "As a merchant" do
+    it "has the User links plus a link to the merchant dashboard" do
+      
     end
   end
 end
