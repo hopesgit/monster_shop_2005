@@ -42,3 +42,18 @@ describe "as a vistor" do
     end
   end
 end
+
+describe "as a vistor" do
+  describe "user new page" do
+    it "has a register link in the nav bar" do
+
+      visit '/register'
+
+      fill_in "Name", with: "Mr. Robot"
+
+      click_button "Submit"
+
+      expect(page).to have_content("Please fill in all fields!")
+    end
+  end
+end
