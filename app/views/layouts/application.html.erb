@@ -17,9 +17,13 @@
       <% if !current_user %>
         <%= link_to "Register", "/register" %>
         <%= link_to "Log In", "/login" %>
-      <% else %>
+      <% elsif current_user.default? %>
         <%= link_to "Profile", "/profile" %>
         <%= link_to "Log Out", "/logout" %>
+      <% elsif current_user.merchant? %>
+        <%= link_to "Profile", "/profile" %>
+        <%= link_to "Log Out", "/logout" %>
+        <%= link_to "Dashboard", "/merchant" %>
       <% end %>
     </nav>
     <% flash.each do |name, msg| %>

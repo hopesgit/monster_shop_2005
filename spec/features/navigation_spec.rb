@@ -164,7 +164,29 @@ RSpec.describe 'Site Navigation' do
 
   describe "As a merchant" do
     it "has the User links plus a link to the merchant dashboard" do
-      
+      user_3 = User.create!(name: "Hope",
+                            street_address: "222 Hope Ln",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80112,
+                            email_address: "hope@example.com",
+                            password: "supersecret",
+                            role: 1)
+      visit "/login"
+
+      fill_in("Email Address", with: "#{user_3.email_address}")
+      fill_in("Password", with: "#{user_3.password}")
+      click_on "Submit"
+
+      visit "/items"
+
+      expect(page).to have_link("Home")
+      expect(page).to have_link("Items")
+      expect(page).to have_link("Merchants")
+      expect(page).to have_link("Cart")
+      expect(page).to have_link("Log Out")
+      expect(page).to have_link("Profile")
+      expect(page).to have_link("Dashboard")
     end
   end
 end
