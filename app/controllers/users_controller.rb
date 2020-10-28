@@ -5,7 +5,10 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
+    if !User.where(email_address: @user.email_address).empty?
+      flash.now[:error] = "Please select a unique email!"
+      render :new
+    elsif @user.save
       flash[:success] = "Welcome #{@user.name}"
       session[:user_id] = @user.id
       redirect_to '/profile'

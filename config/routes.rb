@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
   #Users
   get "/register", to: "users#new"
-  post '/users', to: 'users#create'
+  post '/register', to: 'users#create'
   get '/profile', to: 'users#show'
 
 end
