@@ -53,7 +53,21 @@ RSpec.describe 'Site Navigation' do
     end
 
     it "I see a link to see what's in my shopping cart" do
-      
+      visit '/merchants'
+
+      within 'nav' do
+        click_on "Cart"
+      end
+
+      expect(current_path).to eq("/cart")
+
+      visit '/items'
+
+      within 'nav' do
+        click_on "Cart"
+      end
+
+      expect(current_path).to eq("/cart")
     end
 
     it "I see a link to log in on all pages" do
