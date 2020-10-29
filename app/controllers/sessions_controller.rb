@@ -3,6 +3,12 @@ class SessionsController < ApplicationController
     if current_user
       flash[:error] = 'You are already logged in!'
       redirect_to '/profile'
+    elsif current_merchant?
+      flash[:error] = 'You are already logged in!'
+      redirect_to '/merchant'
+    elsif current_admin?
+      flash[:error] = 'You are already logged in!'
+      redirect_to '/admin'
     end
   end
 
@@ -21,5 +27,11 @@ class SessionsController < ApplicationController
       flash.now[:notice] = "Incorrect email/password combination."
       render :new
     end
+  end
+
+  def destroy
+    reset_session
+    flash[:notice] = 'You are logged out!'
+    redirect_to '/'
   end
 end
