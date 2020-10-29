@@ -59,4 +59,23 @@ describe "As a User" do
       expect(current_path).to eq('/merchant')
     end
   end
+  describe 'As a merchant' do
+    it 'can get redirected to the admins dashboard' do
+      user_4 = User.create!(name: "Todd",
+                            street_address: "999 Nine Ln",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80112,
+                            email_address: "todd2@example.com",
+                            password: "abcd",
+                            role: 2)
+      visit "/login"
+
+      fill_in("Email Address", with: "#{user_4.email_address}")
+      fill_in("Password", with: "#{user_4.password}")
+      click_on "Submit"
+
+      expect(current_path).to eq('/admin')
+    end
+  end
 end
