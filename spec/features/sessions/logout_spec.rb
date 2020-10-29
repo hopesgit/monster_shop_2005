@@ -26,7 +26,6 @@ RSpec.describe 'Logout' do
 
       expect(current_path).to eq('/')
       expect(page).to have_content('You are logged out!')
-      e
     end
 
 
