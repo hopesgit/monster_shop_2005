@@ -40,4 +40,23 @@ describe "As a User" do
     expect(current_path).to eq(login_path)
     expect(page).to have_content("Incorrect email/password combination.")
   end
+  describe 'As a merchant' do
+    it 'can get redirected to the merchants dashboard' do
+      user_3 = User.create!(name: "Hope",
+                            street_address: "222 Hope Ln",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80112,
+                            email_address: "hope1@example.com",
+                            password: "supersecret",
+                            role: 1)
+      visit "/login"
+
+      fill_in("Email Address", with: "#{user_3.email_address}")
+      fill_in("Password", with: "#{user_3.password}")
+      click_on "Submit"
+
+      expect(current_path).to eq('/merchant')
+    end
+  end
 end
