@@ -20,15 +20,16 @@
       <% elsif current_user.default? %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <%= link_to "Profile", "/profile" %>
-        <%= link_to "Log Out", "/logout" %>
+        <%= link_to "Log Out", "/logout", method: :delete %>
       <% elsif current_user.merchant? %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
         <%= link_to "Profile", "/profile" %>
-        <%= link_to "Log Out", "/logout" %>
+        <%= link_to "Log Out", "/logout", method: :delete%>
+        
         <%= link_to "Dashboard", "/merchant" %>
       <% elsif current_user.admin? %>
         <%= link_to "Profile", "/profile" %>
-        <%= link_to "Log Out", "/logout" %>
+        <%= link_to "Log Out", "/logout", method: :delete %>
         <%= link_to "Dashboard", "/admin" %>
         <%= link_to "All Users", "/admin/users" %>
       <% end %>
