@@ -87,3 +87,25 @@ describe "as a vistor" do
     end
   end
 end
+
+describe "As a user" do
+  describe "once they've registered" do
+    it "it keeps the user logged in" do
+      user_2 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80111,
+                            email_address: "George@example.com",
+                            password: "superEasyPZ")
+      visit("/merchants")
+      click_link "Log In"
+      fill_in("Email Address", with: "#{user_2.email_address}")
+      fill_in("Password", with: "#{user_2.password}")
+      click_button("Submit")
+
+      expect(current_path).to eq("/profile")
+      expect(page).to have_content("Logged in as #{user_2.name}.")
+    end
+  end
+end

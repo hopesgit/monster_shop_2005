@@ -5,10 +5,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if params[:password] != params[:confirm_password]
-      flash.now[:error] = "Passwords must match"
-      render :new
-    elsif !User.where(email_address: @user.email_address).empty?
+    if !User.where(email_address: @user.email_address).empty?
       flash.now[:error] = "Please select a unique email!"
       render :new
     elsif @user.save
@@ -22,15 +19,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
-    if session[:user_id]
-      flash[:success] = "Logged in as #{@user.name}."
+    if current_user
+      flash[:success] = "Logged in as #{current_user.name}."
+    else
+      render file: "public/404"
     end
   end
 
   private
   def user_params
     params.permit(:name, :street_address, :city, :state,
-       :zip, :email_address, :password)
+       :zip, :email_address, :password, :password_confirmation)
   end
 end
