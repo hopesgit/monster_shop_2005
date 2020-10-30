@@ -40,7 +40,7 @@ describe "As a User" do
       expect(page).to have_content("Incorrect email/password combination.")
     end
 
-    xit 'will be redirected to the profile page' do
+    it 'will be redirected to the profile page' do
       user_2 = User.create!(name: "George",
                             street_address: "123 lane",
                             city: "Denver",
@@ -52,11 +52,10 @@ describe "As a User" do
 
       click_link "Log In"
       fill_in("Email Address", with: "#{user_2.email_address}")
-      fill_in("Password", with: "Vote4Hope")
+      fill_in("Password", with: user_2.password)
       click_button("Submit")
 
       visit '/login'
-
       expect(page).to have_current_path('/profile')
       expect(page).to have_content('You are already logged in!')
     end
@@ -94,13 +93,11 @@ describe "As a User" do
 
       click_link "Log In"
       fill_in("Email Address", with: "#{user_3.email_address}")
-      fill_in("Password", with: "Vote4Hope")
+      fill_in("Password", with: user_3.password)
       click_button("Submit")
-
+save_and_open_page
       visit '/login'
 
-      sleep(5)
-      
       expect(page).to have_current_path('/merchant')
       expect(page).to have_content('You are already logged in!')
     end
