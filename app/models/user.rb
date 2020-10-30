@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  has_secure_password
 
   validates_presence_of :name
   validates_presence_of :street_address
@@ -9,4 +8,5 @@ class User < ApplicationRecord
   validates :email_address, uniqueness: true, presence: true
   validates_presence_of :password, require: true
   enum role: %w(default merchant admin)
+  has_secure_password
 end
