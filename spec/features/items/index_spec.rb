@@ -54,7 +54,7 @@ RSpec.describe "Items Index Page" do
 
       @piggy_ears = @meg.items.create(
         name: "Piggy Ears",
-        description: "Soothing comfort",
+        description: "Delish treat!",
         price: 24,
         image: "https://i.imgur.com/kV1oKJLb.jpg",
         inventory: 98)
@@ -64,11 +64,11 @@ RSpec.describe "Items Index Page" do
         description: "Soothing comfort",
         price: 72,
         image: "https://i.imgur.com/FuZ6ENsb.jpg",
-        inventory: 98)
+        inventory: 97)
 
       @dream_catcher = @meg.items.create(
         name: "Dream Catcher",
-        description: "Good for catching dreams",
+        description: "Good for catching dreams!",
         price: 62,
         image: "https://i.imgur.com/FBbRiL4b.jpg",
         inventory: 73)
@@ -120,61 +120,61 @@ RSpec.describe "Items Index Page" do
         order_id: @order_5.id,
         item_id: @himalayan_salt_lamp.id,
         price: 72,
-        quantity: 20,
+        quantity: 20
       )
       @item_order_2 = ItemOrder.create!(
         order_id: @order_4.id,
         item_id: @frisbee.id,
         price: 9,
-        quantity: 9,
+        quantity: 9
       )
       @item_order_3 = ItemOrder.create!(
         order_id: @order_3.id,
         item_id: @cat_condo.id,
         price: 100,
-        quantity: 5,
+        quantity: 5
       )
       @item_order_4 = ItemOrder.create!(
         order_id: @order_2.id,
         item_id: @pumpkin_treat.id,
         price: 11,
-        quantity: 31,
+        quantity: 31
       )
       @item_order_5 = ItemOrder.create!(
         order_id: @order_2.id,
         item_id: @tire.id,
         price: 100,
-        quantity: 100,
+        quantity: 100
       )
       @item_order_6 = ItemOrder.create!(
         order_id: @order_4.id,
         item_id: @tire.id,
         price: 100,
-        quantity: 1,
+        quantity: 1
       )
       @item_order_7 = ItemOrder.create!(
         order_id: @order_3.id,
         item_id: @tire.id,
         price: 100,
-        quantity: 7,
+        quantity: 7
       )
       @item_order_8 = ItemOrder.create!(
         order_id: @order_3.id,
         item_id: @dream_catcher.id,
         price: 62,
-        quantity: 5,
+        quantity: 5
       )
       @item_order_9 = ItemOrder.create!(
         order_id: @order_1.id,
         item_id: @pull_toy.id,
         price: 10,
-        quantity: 2,
+        quantity: 2
       )
       @item_order_10 = ItemOrder.create!(
         order_id: @order_5.id,
         item_id: @piggy_ears.id,
         price: 100,
-        quantity: 3,
+        quantity: 3
       )
     end
 
