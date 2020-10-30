@@ -95,7 +95,7 @@ describe "As a User" do
       fill_in("Email Address", with: "#{user_3.email_address}")
       fill_in("Password", with: user_3.password)
       click_button("Submit")
-save_and_open_page
+      
       visit '/login'
 
       expect(page).to have_current_path('/merchant')
