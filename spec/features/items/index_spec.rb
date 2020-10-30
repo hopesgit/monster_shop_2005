@@ -39,7 +39,7 @@ RSpec.describe "Items Index Page" do
         inventory: 5)
 
       @frisbee = @meg.items.create(
-        name: "frisbee",
+        name: "Frisbee",
         description: "Outdoor fun",
         price: 9,
         image: "https://i.imgur.com/10pHPwhb.jpg",
@@ -243,19 +243,15 @@ RSpec.describe "Items Index Page" do
       visit '/items'
 
       within '#stats' do
-        expect(page).to have_content('Top Five Most Popular Items')
-        expect(page).to have_content("1. #{@tire.name} Quantity: (#{item_order_5.quantity})")
-        expect(page).to have_content("2. #{@pumpkin_treat.name} Quantity: (#{item_order_4.quantity})")
-        expect(page).to have_content("3. #{@himalayan_salt_lamp.name} Quantity: (#{item_order_1.quantity})")
-        expect(page).to have_content("4. #{@frisbee.name} Quantity: (#{item_order_2.quantity})")
-        expect(page).to have_content("5. #{@cat_condo.name} Quantity: (#{item_order_3.quantity})")
+        expect(page).to have_content('Top Five Most Popular Items:')
+        Item.top_five.each do |item|
+          expect(page).to have_content("#{item.name} (#{item.total_sum} sold)")
+        end
 
-        expect(page).to have_content('Five Least Popular Items')
-        expect(page).to have_content("1. #{@pull_toy.name} Quantity: (#{item_order_9.quantity})")
-        expect(page).to have_content("2. #{@piggy_ears.name} Quantity: (#{item_order_10.quantity})")
-        expect(page).to have_content("3. #{@dream_catcher.name} Quantity: (#{item_order_8.quantity})")
-        expect(page).to have_content("4. #{@frisbee.name} Quantity: (#{item_order_2.quantity})")
-        expect(page).to have_content("5. #{@pumpkin_treat.name} Quantity: (#{item_order_4.quantity})")
+        expect(page).to have_content('Five Least Popular Items:')
+        Item.bottom_five.each do |item|
+          expect(page).to have_content("#{item.name} (#{item.total_sum} sold)")
+        end
       end
     end
   end
