@@ -101,7 +101,7 @@ describe 'User Show Page' do
       expect(page).to_not have_content(user_2.password)
     end
 
-    xit "can visit profile and see a link to edit password" do
+    it "can visit profile and see a link to edit password" do
       user_2 = User.create!(name: "George",
                             street_address: "123 lane",
                             city: "Denver",
@@ -109,6 +109,7 @@ describe 'User Show Page' do
                             zip: '80111',
                             email_address: "George@example.com",
                             password: "superEasyPZ")
+      new_password = 'iLikeTuring'
       visit "/login"
 
       click_link "Log In"
@@ -116,10 +117,21 @@ describe 'User Show Page' do
       fill_in("Password", with: "#{user_2.password}")
       click_button("Submit")
 
+      visit '/profile'
       click_link("Edit Password")
 
+      expect(current_path).to eq('/profile/password/edit')
+
+      expect(page).to have_content('Update Password')
+      fill_in 'Password', with: new_password
+      fill_in 'Confirm Password', with: new_password
+      click_button 'Update Password'
+
+      expect(current_path).to eq('/profile')
+      expect(page).to have_content('Password was successfully updated!')
     end
-    it 'can click the Edit Profile link and see a form to edit data' do
+
+    it 'cannot use an email that is already in the database' do
       user_1 = User.create!(name: "George",
                             street_address: "123 lane",
                             city: "Denver",
@@ -147,7 +159,7 @@ describe 'User Show Page' do
       fill_in("Confirm Password", with: "#{user_2.password}")
 
       click_button('Submit Changes')
-      
+
       expect(current_path).to eq('/profile/edit')
       expect(page).to have_content("Please select a unique email!")
     end
