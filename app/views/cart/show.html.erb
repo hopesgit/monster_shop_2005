@@ -30,9 +30,9 @@
       </td>
       <td>
         <center>
-          <p><%=link_to "➖"%>
+          <p><%=link_to "➖", "/cart/decrement/#{item.id}", method: :patch%>
             <%=quantity%>
-            <%=link_to "➕", "/cart/#{item.id}", method: :patch%></p>
+            <%=link_to "➕", "/cart/increment/#{item.id}", method: :patch%></p>
           <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
         </td>
