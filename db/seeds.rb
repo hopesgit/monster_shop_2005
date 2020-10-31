@@ -26,3 +26,31 @@ missiles = metroid_shop.items.create(name: "Missiles", description: "Access to n
 power_bombs = metroid_shop.items.create(name: "Power Bombs", description: "No one is safe!", price: 200, image: "https://i.ibb.co/1rH5cp5/pbomb-n-02.gif", inventory: 21)
 varia_suit = metroid_shop.items.create(name: "Varia Suit", description: "Get you through acid!", price: 500, image: "https://i.ibb.co/K6sQT2b/MP-VS.jpg", inventory: 32)
 super_missiles = metroid_shop.items.create(name: "Super Missiles", description: "The boss puncher!", price: 100, image: "https://i.ibb.co/Kbgndr2/SM.jpg", inventory: 21)
+
+#users
+  #default
+user_1 = User.create!(name: "George",
+                      street_address: "123 lane",
+                      city: "Denver",
+                      state: "CO",
+                      zip: 80111,
+                      email_address: "George@example.com",
+                      password: "superEasyPZ")
+  #merchant
+user_2 = User.create!(name: "Hope",
+                      street_address: "456 Space st",
+                      city: "Space",
+                      state: "CO",
+                      zip: 80111,
+                      email_address: "Hope@example.com",
+                      password: "superEasyPZ",
+                      role: 1)
+  #admin
+user_3 = User.create!(name: "Todd",
+                      street_address: "789 Main st",
+                      city: "Denver",
+                      state: "CO",
+                      zip: 80111,
+                      email_address: "Todd@example.com",
+                      password: "superEasyPZ",
+                      role: 2)
