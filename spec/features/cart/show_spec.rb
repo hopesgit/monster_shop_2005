@@ -6,6 +6,12 @@ RSpec.describe 'Cart show' do
       before(:each) do
         @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
         @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+        @hope = Merchant.create(name: "Hope's Metroid Shop", address: '125 XR42 St.', city: 'Denver', state: 'CO', zip: 80210)
+
+        @missiles = @hope.items.create(name: "Missiles", description: "Access to new areas!", price: 10, image: "https://i.ibb.co/HVNNc7V/item-missile.gif", inventory: 32)
+        @power_bombs = @hope.items.create(name: "Power Bombs", description: "No one is safe!", price: 200, image: "https://i.ibb.co/1rH5cp5/pbomb-n-02.gif", inventory: 21)
+        @varia_suit = @hope.items.create(name: "Varia Suit", description: "Get you through acid!", price: 500, image: "https://i.ibb.co/K6sQT2b/MP-VS.jpg", inventory: 32)
+        @super_missiles = @hope.items.create(name: "Super Missiles", description: "The boss puncher!", price: 100, image: "https://i.ibb.co/Kbgndr2/SM.jpg", inventory: 21)
 
         @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
         @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
@@ -69,7 +75,38 @@ RSpec.describe 'Cart show' do
         visit '/cart'
         expect(page).to_not have_link("Empty Cart")
       end
+    end
+  end
 
+  describe "When I have items then visit my cart" do
+    it "Has a button to increment the count of items I want to purchase
+    as long as the item is in stock" do
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @hope = Merchant.create(name: "Hope's Metroid Shop", address: '125 XR42 St.', city: 'Denver', state: 'CO', zip: 80210)
+
+      @missiles = @hope.items.create(name: "Missiles", description: "Access to new areas!", price: 10, image: "https://i.ibb.co/HVNNc7V/item-missile.gif", inventory: 32)
+      @power_bombs = @hope.items.create(name: "Power Bombs", description: "No one is safe!", price: 200, image: "https://i.ibb.co/1rH5cp5/pbomb-n-02.gif", inventory: 21)
+      @varia_suit = @hope.items.create(name: "Varia Suit", description: "Get you through acid!", price: 500, image: "https://i.ibb.co/K6sQT2b/MP-VS.jpg", inventory: 32)
+      @super_missiles = @hope.items.create(name: "Super Missiles", description: "The boss puncher!", price: 100, image: "https://i.ibb.co/Kbgndr2/SM.jpg", inventory: 21)
+
+      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+      @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+      visit "/items/#{@tire.id}"
+      click_on "Add To Cart"
+      visit "/items/#{@pencil.id}"
+      click_on "Add To Cart"
+      @items_in_cart = [@paper,@tire,@pencil]
+
+      visit '/cart'
+      save_and_open_page
+      within("#cart-item-#{@pencil.id}") do
+        click_link("➕")
+        expect(page).to have_content(2)
+      end
     end
   end
 end
