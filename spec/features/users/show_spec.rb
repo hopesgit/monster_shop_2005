@@ -81,8 +81,14 @@ describe 'User Show Page' do
       expect(find_field(:zip).value).to eq(user_2.zip.to_s)
       expect(find_field(:email_address).value).to eq(user_2.email_address)
 
-      click_button('Submit Changes')
+      fill_in "Password", with: "superEasyPZ"
+      fill_in "Confirm Password", with: "superEasyPZ"
 
+
+
+
+      click_button('Submit Changes')
+      
       expect(current_path).to eq('/profile')
 
       expect(page).to have_content("You have successfully updated your profile")

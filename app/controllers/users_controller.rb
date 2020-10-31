@@ -24,14 +24,11 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(update_params)
-    @user.save
-    @user = current_user
-      flash[:success] = "You have successfully updated your profile"
-      redirect_to "/profile"
+    @user.update(user_params)
+    @user.save!
+    flash[:edited] = "You have successfully updated your profile"
+    redirect_to "/profile"
   end
-
-
 
   def show
     if current_user
