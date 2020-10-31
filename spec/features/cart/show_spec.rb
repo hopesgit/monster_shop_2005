@@ -102,11 +102,24 @@ RSpec.describe 'Cart show' do
       @items_in_cart = [@paper,@tire,@pencil]
 
       visit '/cart'
-      save_and_open_page
       within("#cart-item-#{@pencil.id}") do
         click_link("➕")
         expect(page).to have_content(2)
       end
+    end
+
+    it "Pops an error when trying to buy more than in stock" do
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
+      @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 1)
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+
+      visit '/cart'
+      within("#cart-item-#{@paper.id}") do
+        click_link("➕")
+      end
+      expect(page).to have_content("Not enough in stock")
     end
   end
 end
