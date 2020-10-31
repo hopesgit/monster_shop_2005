@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = User.find(session[:user_id])
     if current_user
       flash[:success] = "Logged in as #{current_user.name}."
     else
