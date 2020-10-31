@@ -135,7 +135,7 @@ RSpec.describe 'Cart show' do
       end
     end
 
-    it "Has a link to decrement the count" do
+    it "Has a link to log in or register if not logged in" do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 
@@ -147,10 +147,43 @@ RSpec.describe 'Cart show' do
       click_on "Add To Cart"
       visit '/cart'
 
-      within "#visitor-notice" do
+      within ".visitor-notice" do
         expect(page).to have_content("You must log in or register to finish the checkout process")
         expect(page).to have_link("log in")
         expect(page).to have_link("register")
+      end
+    end
+
+    it "I do not see a link to log in or register if I am logged in" do
+      user_2 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80111,
+                            email_address: "George@example.com",
+                            password: "superEasyPZ")
+
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
+      @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      @paper = @mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 25)
+      @pencil = @mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+
+      visit "/login"
+
+      click_link "Log In"
+      fill_in("Email Address", with: "#{user_2.email_address}")
+      fill_in("Password", with: "#{user_2.password}")
+      click_button("Submit")
+      visit "/items/#{@paper.id}"
+      click_on "Add To Cart"
+      visit '/cart'
+
+      within ".visitor-notice" do
+        expect(page).to_not have_content("You must log in or register to finish the checkout process")
+        expect(page).to_not have_link("log in")
+        expect(page).to_not have_link("register")
       end
     end
   end
