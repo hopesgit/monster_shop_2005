@@ -21,6 +21,11 @@ class CartController < ApplicationController
     redirect_to '/cart'
   end
 
+  def increment_quantity
+    cart.contents[params[:item_id]] += 1
+    redirect_to '/cart'
+  end
+
   private
   def require_non_admin
     render file: "/public/404" if current_admin?
