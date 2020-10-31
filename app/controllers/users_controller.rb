@@ -25,9 +25,13 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.update(user_params)
-    @user.save!
-    flash[:edited] = "You have successfully updated your profile"
-    redirect_to "/profile"
+    if @user.save
+      flash[:edited] = "You have successfully updated your profile"
+      redirect_to "/profile"
+    else
+      flash[:error] = "Please select a unique email!"
+      redirect_to '/profile/edit'
+    end
   end
 
   def show

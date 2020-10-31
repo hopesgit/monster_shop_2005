@@ -85,10 +85,8 @@ describe 'User Show Page' do
       fill_in "Confirm Password", with: "superEasyPZ"
 
 
-
-
       click_button('Submit Changes')
-      
+
       expect(current_path).to eq('/profile')
 
       expect(page).to have_content("You have successfully updated your profile")
@@ -101,6 +99,57 @@ describe 'User Show Page' do
       expect(page).to have_content("Zip: #{user_2.zip}")
       expect(page).to have_content("Email: #{user_2.email_address}")
       expect(page).to_not have_content(user_2.password)
+    end
+
+    xit "can visit profile and see a link to edit password" do
+      user_2 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: '80111',
+                            email_address: "George@example.com",
+                            password: "superEasyPZ")
+      visit "/login"
+
+      click_link "Log In"
+      fill_in("Email Address", with: "#{user_2.email_address}")
+      fill_in("Password", with: "#{user_2.password}")
+      click_button("Submit")
+
+      click_link("Edit Password")
+
+    end
+    it 'can click the Edit Profile link and see a form to edit data' do
+      user_1 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: '80111',
+                            email_address: "George@example.com",
+                            password: "superEasyPZ")
+      user_2 = User.create!(name: "Shaun",
+                            street_address: "100 Elm St",
+                            city: "Denver",
+                            state: "CO",
+                            zip: '80111',
+                            email_address: "JackSkellinton@example.com",
+                            password: "superEasyPZ")
+      visit "/login"
+
+      click_link "Log In"
+      fill_in("Email Address", with: "#{user_2.email_address}")
+      fill_in("Password", with: "#{user_2.password}")
+      click_button("Submit")
+
+      click_link "Edit Profile"
+      fill_in("Email Address", with: "#{user_1.email_address}")
+      fill_in("Password", with: "#{user_2.password}")
+      fill_in("Confirm Password", with: "#{user_2.password}")
+
+      click_button('Submit Changes')
+      
+      expect(current_path).to eq('/profile/edit')
+      expect(page).to have_content("Please select a unique email!")
     end
   end
 end
