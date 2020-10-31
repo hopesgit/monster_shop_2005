@@ -18,6 +18,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = current_user
+  end
+
   def show
     if current_user
       @user = current_user
