@@ -19,6 +19,14 @@ describe Item, type: :model do
 
   describe "instance methods" do
     before(:each) do
+      user_1 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80111,
+                            email_address: "George@example.com",
+                            password: "superEasyPZ")
+
       @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -39,11 +47,11 @@ describe Item, type: :model do
       @himalayan_salt_lamp = @meg.items.create(name: "Himalayan Salt Lamp", description: "Soothing comfort", price: 72, image: "https://i.imgur.com/FuZ6ENsb.jpg", inventory: 97)
       @dream_catcher = @meg.items.create(name: "Dream Catcher", description: "Good for catching dreams!", price: 62, image: "https://i.imgur.com/FBbRiL4b.jpg", inventory: 73)
 
-      @order_1 = Order.create!(name: 'Mike Dao', address: '1234 Main St.', city: 'Vancuver', state: 'WA', zip: 92838)
-      @order_2 = Order.create!(name: 'Leslie Knope', address: '1234 Main St.', city: 'Chicago', state: 'IL', zip: 93847)
-      @order_3 = Order.create!(name: 'Michelle Hershey', address: '1234 Main St.', city: 'Boston', state: 'MA', zip: 83749)
-      @order_4 = Order.create!(name: 'Nicole Isle', address: '1234 Main St.', city: 'Jacksonville', state: 'FL', zip: 76354)
-      @order_5 = Order.create!(name: 'Ameen Larry', address: '1234 Main St.', city: 'Casper', state: 'WY', zip: 36459)
+      @order_1 = Order.create!(name: 'Mike Dao', address: '1234 Main St.', city: 'Vancuver', state: 'WA', zip: 92838, user_id: user_1.id)
+      @order_2 = Order.create!(name: 'Leslie Knope', address: '1234 Main St.', city: 'Chicago', state: 'IL', zip: 93847, user_id: user_1.id)
+      @order_3 = Order.create!(name: 'Michelle Hershey', address: '1234 Main St.', city: 'Boston', state: 'MA', zip: 83749, user_id: user_1.id)
+      @order_4 = Order.create!(name: 'Nicole Isle', address: '1234 Main St.', city: 'Jacksonville', state: 'FL', zip: 76354, user_id: user_1.id)
+      @order_5 = Order.create!(name: 'Ameen Larry', address: '1234 Main St.', city: 'Casper', state: 'WY', zip: 36459, user_id: user_1.id)
 
       @item_order_1 = ItemOrder.create!(order_id: @order_5.id, item_id: @himalayan_salt_lamp.id, price: 72, quantity: 20)
       @item_order_2 = ItemOrder.create!(order_id: @order_4.id, item_id: @frisbee.id, price: 9, quantity: 9)
@@ -70,8 +78,16 @@ describe Item, type: :model do
     end
 
     it 'no orders' do
+      user_1 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80111,
+                            email_address: "George123@example.com",
+                            password: "superEasyPZ")
+
       expect(@chain.no_orders?).to eq(true)
-      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: user_1.id)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end
