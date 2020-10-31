@@ -50,3 +50,9 @@
 <% end %>
 <table>
 </center>
+
+<section class= 'visitor-notice'>
+  <% if !current_user%>
+    <p>You must <%= link_to 'log in', '/login' %> or <%= link_to 'register', '/register' %> to finish the checkout process</p>
+    <% end %>
+</section>
