@@ -33,24 +33,6 @@ describe "As a registered user" do
       click_on "Add To Cart"
     end
 
-    it "I see a link indicating I can check out and my purchase is pending" do
-
-      visit '/cart'
-
-      click_link "Checkout"
-
-      fill_in(:name, with: @user_1.name)
-      fill_in(:address, with: @user_1.street_address)
-      fill_in(:city, with: @user_1.city)
-      fill_in(:state, with: @user_1.state)
-      fill_in(:zip, with: @user_1.zip)
-
-      click_button("Create Order")
-
-      expect(page).to have_content("Status")
-      expect(page).to have_content("pending")
-    end
-
     it "I am directed to my orders page where I see a message telling me
     my order has been created and my cart is empty" do
 
