@@ -28,7 +28,15 @@ class CartController < ApplicationController
     else
       flash[:error] = "Not enough in stock"
       redirect_to '/cart'
-    end 
+    end
+  end
+
+  def decrement_quantity
+    cart.contents[params[:item_id]] -= 1
+    if cart.contents[params[:item_id]] == 0
+      session[:cart].delete(params[:item_id])
+    end
+    redirect_to '/cart'
   end
 
   private
