@@ -18,11 +18,39 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    @user.update(user_params)
+    if @user.save
+      flash[:edited] = "You have successfully updated your profile"
+      redirect_to "/profile"
+    else
+      flash[:error] = "Please select a unique email!"
+      redirect_to '/profile/edit'
+    end
+  end
+
   def show
     if current_user
+      @user = current_user
       flash[:success] = "Logged in as #{current_user.name}."
     else
       render file: "public/404"
+    end
+  end
+
+  def password_edit
+    @user = current_user
+  end
+
+  def password_update
+    if current_user.update(user_params)
+      flash[:message] = 'Password was successfully updated!'
+      redirect_to '/profile'
     end
   end
 
@@ -30,5 +58,10 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :street_address, :city, :state,
        :zip, :email_address, :password, :password_confirmation)
+  end
+
+  def update_params
+    params.permit(:name, :street_address, :city, :state,
+       :zip, :email_address)
   end
 end
