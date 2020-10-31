@@ -9,7 +9,12 @@ class OrdersController <ApplicationController
   end
 
   def create
-    order = Order.create(order_params)
+    order = Order.create(name: order_params[:name],
+                         address: order_params[:address],
+                         city: order_params[:city],
+                         state: order_params[:state],
+                         zip: order_params[:zip],
+                         user_id: current_user.id)
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
