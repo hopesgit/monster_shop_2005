@@ -22,8 +22,13 @@ class CartController < ApplicationController
   end
 
   def increment_quantity
-    cart.contents[params[:item_id]] += 1
-    redirect_to '/cart'
+    if cart.contents[params[:item_id]] < Item.find(params[:item_id]).inventory
+      cart.contents[params[:item_id]] += 1
+      redirect_to '/cart'
+    else
+      flash[:error] = "Not enough in stock"
+      redirect_to '/cart'
+    end 
   end
 
   private
