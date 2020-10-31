@@ -25,4 +25,11 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def self.top_five
+    Item.joins(:item_orders).select('items.*, sum(quantity) as total_sum').group(:id).order(total_sum: :desc).limit(5)
+  end
+
+  def self.bottom_five
+    Item.joins(:item_orders).select('items.*, sum(quantity) as total_sum').group(:id).order(total_sum: :asc).limit(5)
+  end
 end
