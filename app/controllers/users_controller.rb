@@ -43,6 +43,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def password_edit
+    @user = current_user
+  end
+
+  def password_update
+    if current_user.update(user_params)
+      flash[:message] = 'Password was successfully updated!'
+      redirect_to '/profile'
+    end
+  end
+
   private
   def user_params
     params.permit(:name, :street_address, :city, :state,
