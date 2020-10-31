@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe "As a registered user" do
-  describe "When I have items in my cart and I visit it" do
+describe "As a user" do
+  describe "I see my orders listed on my profile/orders page" do
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -33,10 +33,8 @@ describe "As a registered user" do
       click_on "Add To Cart"
     end
 
-    it "I see a link indicating I can check out and my purchase is pending" do
-
+    it "When I click create order it takes me to my profile/orders page" do
       visit '/cart'
-
       click_link "Checkout"
 
       fill_in(:name, with: @user_1.name)
@@ -47,28 +45,10 @@ describe "As a registered user" do
 
       click_button("Create Order")
 
-      expect(page).to have_content("Status")
-      expect(page).to have_content("pending")
-    end
-
-    it "I am directed to my orders page where I see a message telling me
-    my order has been created and my cart is empty" do
-
-      visit '/cart'
-
-      click_link "Checkout"
-
-      fill_in(:name, with: @user_1.name)
-      fill_in(:address, with: @user_1.street_address)
-      fill_in(:city, with: @user_1.city)
-      fill_in(:state, with: @user_1.state)
-      fill_in(:zip, with: @user_1.zip)
-
-      click_button("Create Order")
-
-      expect(current_path).to eq("/profile/orders")
-      expect(page).to have_content("Your order was created")
-      expect(page).to have_content("#{paper.name}")
+      expect(current_path).to eq('/profile/orders')
+      expect(page).to have_content("#{@user_1.name}'s orders")
+      expect(page).to have_content("Cart: 0")
+      expect(page).to have_content("Your order has been created")
     end
   end
 end
