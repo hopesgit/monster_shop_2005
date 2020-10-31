@@ -22,6 +22,17 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def update
+    @user = current_user
+    @user.update(update_params)
+    @user.save
+    @user = current_user
+      flash[:success] = "You have successfully updated your profile"
+      redirect_to "/profile"
+  end
+
+
+
   def show
     if current_user
       @user = current_user
@@ -35,5 +46,10 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:name, :street_address, :city, :state,
        :zip, :email_address, :password, :password_confirmation)
+  end
+
+  def update_params
+    params.permit(:name, :street_address, :city, :state,
+       :zip, :email_address)
   end
 end
