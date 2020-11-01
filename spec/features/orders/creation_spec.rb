@@ -94,11 +94,8 @@ RSpec.describe("Order Creation") do
         expect(page).to have_content("$2")
       end
 
-      within "#grandtotal" do
+      within "#order-details" do
         expect(page).to have_content("Total: $142")
-      end
-
-      within "#datecreated" do
         expect(page).to have_content(new_order.created_at)
       end
     end

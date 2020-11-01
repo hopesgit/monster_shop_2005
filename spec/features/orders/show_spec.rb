@@ -31,11 +31,6 @@ describe "As a registered user" do
       click_on "Add To Cart"
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
-    end
-
-    it "I am directed to my orders page where I see a message telling me
-    my order has been created and my cart is empty" do
-
       visit '/cart'
 
       click_link "Checkout"
@@ -47,12 +42,76 @@ describe "As a registered user" do
       fill_in(:zip, with: @user_1.zip)
 
       click_button("Create Order")
+    end
 
+    it "I am directed to my orders page where I see a message telling me
+    my order has been created and my cart is empty" do
       expect(current_path).to eq("/profile/orders")
       expect(page).to have_content("Cart: 0")
       expect(page).to have_content("Your order has been created")
       click_link("Order ##{Order.last.id}")
       expect(page).to have_content("#{@paper.name}")
+    end
+
+    it "has a link that goes to /profile/orders/:id and more details" do
+      current_order = Order.last
+      click_link("Order ##{current_order.id}")
+      expect(current_path).to eq("/profile/orders/#{current_order.id}")
+
+      within("#order-details") do
+        expect(page).to have_content("Order ID: #{current_order.id}")
+        expect(page).to have_content("Total: $#{current_order.grandtotal}")
+        expect(page).to have_content("Total Items: #{current_order.total_order_items}")
+        expect(page).to have_content("Order Date: #{current_order.created_at}")
+        expect(page).to have_content("Last Updated: #{current_order.updated_at}")
+      end
+
+      expect(page).to have_content(current_order.status)
+
+      within("#item-#{@tire.id}") do
+        expect(page).to have_xpath("//img[contains(@src,'#{@tire.image}')]")
+        expect(page).to have_content(@tire.description)
+      end
+
+      within("#item-#{@paper.id}") do
+        expect(page).to have_xpath("//img[contains(@src,'#{@paper.image}')]")
+        expect(page).to have_content(@paper.description)
+      end
+
+      within("#item-#{@pencil.id}") do
+        expect(page).to have_xpath("//img[contains(@src,'#{@pencil.image}')]")
+        expect(page).to have_content(@pencil.description)
+      end
+    end
+
+    it "can cancel orders, which brings those items back to the total" do
+      current_order = Order.last
+      item_1 = current_order.items[0]
+      item_1_inventory_before_delete = item_1.inventory
+      item_1_order_quantity = current_order.item_orders.find_by(item_id: item_1.id).quantity
+
+      visit("/profile/orders/#{current_order.id}")
+
+      expect(page).to have_link("Cancel Order")
+      click_link("Cancel Order")
+
+      expect(page).to have_content("The order is now cancelled.")
+      expect(current_path).to eq("/profile")
+      current_order.reload
+
+      visit("/profile/orders")
+      expect(current_order.status).to eq("cancelled")
+
+      within("#order-#{current_order.id}") do
+        expect("Order Status: cancelled")
+      end
+
+      current_order.item_orders.each do |item_order|
+        expect(item_order.status).to eq("unfulfilled")
+      end
+
+      item_1.reload
+      expect(item_1.inventory).to eq(item_1_inventory_before_delete + item_1_order_quantity)
     end
   end
 end

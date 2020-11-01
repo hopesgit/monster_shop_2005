@@ -52,7 +52,7 @@ describe "As a user" do
 
     it "has the order details" do
       current_order = Order.last
-      save_and_open_page
+      
       expect(page).to have_link("Order ##{current_order.id}")
       expect(page).to have_content("Order Date: #{current_order.created_at}")
       expect(page).to have_content("Last Updated: #{current_order.updated_at}")
