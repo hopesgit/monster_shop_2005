@@ -24,12 +24,26 @@ class OrdersController <ApplicationController
           })
       end
       session.delete(:cart)
+
+      
       flash[:message] = "Your order has been created"
       redirect_to "/profile/orders"
     else
       flash[:notice] = "Please complete address form to create an order."
       render :new
     end
+  end
+
+  def update
+    order = Order.find(params[:id])
+    order.update(status: 3)
+    order.save
+    order.item_orders.each do |item_order|
+      item_order.update(status: "unfulfilled")
+      item_order.return_ordered_items
+    end
+    flash[:alert] = "The order is now cancelled."
+    redirect_to "/profile"
   end
 
 
