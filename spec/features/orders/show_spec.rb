@@ -49,9 +49,9 @@ describe "As a registered user" do
       click_button("Create Order")
 
       expect(current_path).to eq("/profile/orders")
+      expect(page).to have_content("Cart: 0")
       expect(page).to have_content("Your order has been created")
       click_link("Order ##{Order.last.id}")
-      save_and_open_page
       expect(page).to have_content("#{@paper.name}")
     end
   end
