@@ -54,6 +54,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def orders_index
+    @orders = current_user.orders
+  end
+
   private
   def user_params
     params.permit(:name, :street_address, :city, :state,

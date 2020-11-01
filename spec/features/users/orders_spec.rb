@@ -1,5 +1,7 @@
-RSpec.describe("New Order Page") do
-  describe "When I check out from my cart" do
+require 'rails_helper'
+
+describe "As a user" do
+  describe "I see my orders listed on my profile/orders page" do
     before(:each) do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
@@ -20,7 +22,7 @@ RSpec.describe("New Order Page") do
       fill_in("Email Address", with: "#{@user_1.email_address}")
       fill_in("Password", with: "#{@user_1.password}")
       click_button("Submit")
-      
+
       visit "/items/#{@paper.id}"
       click_on "Add To Cart"
       visit "/items/#{@paper.id}"
@@ -30,48 +32,23 @@ RSpec.describe("New Order Page") do
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
     end
-    it "I see all the information about my current cart" do
-      visit "/cart"
 
-      click_on "Checkout"
+    it "When I click create order it takes me to my profile/orders page" do
+      visit '/cart'
+      click_link "Checkout"
 
-      within "#order-item-#{@tire.id}" do
-        expect(page).to have_link(@tire.name)
-        expect(page).to have_link("#{@tire.merchant.name}")
-        expect(page).to have_content("$#{@tire.price}")
-        expect(page).to have_content("1")
-        expect(page).to have_content("$100")
-      end
+      fill_in(:name, with: @user_1.name)
+      fill_in(:address, with: @user_1.street_address)
+      fill_in(:city, with: @user_1.city)
+      fill_in(:state, with: @user_1.state)
+      fill_in(:zip, with: @user_1.zip)
 
-      within "#order-item-#{@paper.id}" do
-        expect(page).to have_link(@paper.name)
-        expect(page).to have_link("#{@paper.merchant.name}")
-        expect(page).to have_content("$#{@paper.price}")
-        expect(page).to have_content("2")
-        expect(page).to have_content("$40")
-      end
+      click_button("Create Order")
 
-      within "#order-item-#{@pencil.id}" do
-        expect(page).to have_link(@pencil.name)
-        expect(page).to have_link("#{@pencil.merchant.name}")
-        expect(page).to have_content("$#{@pencil.price}")
-        expect(page).to have_content("1")
-        expect(page).to have_content("$2")
-      end
-
-      expect(page).to have_content("Total: $142")
-    end
-
-    it "I see a form where I can enter my shipping info" do
-      visit "/cart"
-      click_on "Checkout"
-
-      expect(page).to have_field(:name)
-      expect(page).to have_field(:address)
-      expect(page).to have_field(:city)
-      expect(page).to have_field(:state)
-      expect(page).to have_field(:zip)
-      expect(page).to have_button("Create Order")
+      expect(current_path).to eq('/profile/orders')
+      expect(page).to have_content("#{@user_1.name}'s orders")
+      expect(page).to have_content("Cart: 0")
+      expect(page).to have_content("Your order has been created")
     end
   end
 end

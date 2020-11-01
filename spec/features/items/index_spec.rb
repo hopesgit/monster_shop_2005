@@ -3,6 +3,14 @@ require 'rails_helper'
 RSpec.describe "Items Index Page" do
   describe "When I visit the items index page" do
     before(:each) do
+      @user_1 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80111,
+                            email_address: "George@example.com",
+                            password: "superEasyPZ")
+
       @meg = Merchant.create(
         name: "Meg's Bike Shop",
         address: '123 Bike Rd.',
@@ -86,35 +94,40 @@ RSpec.describe "Items Index Page" do
         address: '1234 Main St.',
         city: 'Vancuver',
         state: 'WA',
-        zip: 92838
+        zip: 92838,
+        user_id: @user_1.id
       )
       @order_2 = Order.create!(
         name: 'Leslie Knope',
         address: '1234 Main St.',
         city: 'Chicago',
         state: 'IL',
-        zip: 93847
+        zip: 93847,
+        user_id: @user_1.id
       )
       @order_3 = Order.create!(
         name: 'Michelle Hershey',
         address: '1234 Main St.',
         city: 'Boston',
         state: 'MA',
-        zip: 83749
+        zip: 83749,
+        user_id: @user_1.id
       )
       @order_4 = Order.create!(
         name: 'Nicole Isle',
         address: '1234 Main St.',
         city: 'Jacksonville',
         state: 'FL',
-        zip: 76354
+        zip: 76354,
+        user_id: @user_1.id
       )
       @order_5 = Order.create!(
         name: 'Ameen Larry',
         address: '1234 Main St.',
         city: 'Casper',
         state: 'WY',
-        zip: 36459
+        zip: 36459,
+        user_id: @user_1.id
       )
       @item_order_1 = ItemOrder.create!(
         order_id: @order_5.id,

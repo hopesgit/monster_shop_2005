@@ -27,10 +27,15 @@ Rails.application.routes.draw do
   patch "/reviews/:id", to: "reviews#update"
   delete "/reviews/:id", to: "reviews#destroy"
 
+  #cart
   post "/cart/:item_id", to: "cart#add_item"
   get "/cart", to: "cart#show"
   delete "/cart", to: "cart#empty"
   delete "/cart/:item_id", to: "cart#remove_item"
+  get '/cart/increment/:item_id', to: 'cart#increment_quantity'
+  patch '/cart/increment/:item_id', to: 'cart#increment_quantity'
+  get '/cart/decrement/:item_id', to: 'cart#decrement_quantity'
+  patch '/cart/decrement/:item_id', to: 'cart#decrement_quantity'
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
@@ -47,6 +52,7 @@ Rails.application.routes.draw do
   get "/login", to: 'sessions#new'
   post "/login", to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  get '/profile/orders', to: 'users#orders_index'
 
   # Merchants Only
   namespace :merchant do
