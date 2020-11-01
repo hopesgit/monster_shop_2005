@@ -1,1 +1,5 @@
 <h1><%= current_user.name %>'s orders</h1>
+<% current_user.orders.each do |order| %>
+  <%= link_to "Order ##{order.id}", "/orders/#{order.id}" %>
+  <p>Order status: <%= order.status %></p>
+<% end %>
