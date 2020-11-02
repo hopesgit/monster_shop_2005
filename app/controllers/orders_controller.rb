@@ -25,7 +25,10 @@ class OrdersController <ApplicationController
       end
       session.delete(:cart)
 
-      
+      order.item_orders.each do |item_order|
+        item_order.check_out_items
+      end
+
       flash[:message] = "Your order has been created"
       redirect_to "/profile/orders"
     else
