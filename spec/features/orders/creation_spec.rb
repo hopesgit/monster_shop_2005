@@ -55,9 +55,16 @@ RSpec.describe("Order Creation") do
       fill_in :state, with: state
       fill_in :zip, with: zip
 
-      click_button "Create Order"
+      pencil_inventory_1 = @pencil.inventory
 
+      click_button "Create Order"
+      @pencil.reload
+
+      pencil_inventory_2 = @pencil.inventory
       new_order = Order.last
+      item_order_quantity = new_order.item_orders.find_by(item_id: @pencil.id).quantity
+
+      expect(pencil_inventory_1 - pencil_inventory_2).to eq(item_order_quantity)
 
       expect(current_path).to eq("/profile/orders")
       click_link "Order ##{new_order.id}"

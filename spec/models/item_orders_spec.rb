@@ -39,5 +39,11 @@ describe ItemOrder, type: :model do
       @item_order_1.return_ordered_items
       expect(@tire.inventory).to eq(14)
     end
+
+    it '#check_out_items' do
+      expect(@tire.inventory).to eq(12)
+      @item_order_1.check_out_items
+      expect(@tire.inventory).to eq(10)
+    end
   end
 end
