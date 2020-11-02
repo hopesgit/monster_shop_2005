@@ -8,6 +8,13 @@ class ItemOrder <ApplicationRecord
     price * quantity
   end
 
+  def check_out_items
+    change = self.quantity
+    current_inventory = item.inventory
+    item.update(inventory: (current_inventory - change))
+    item.save
+  end
+
   def return_ordered_items
     change = self.quantity
     current_inventory = item.inventory
