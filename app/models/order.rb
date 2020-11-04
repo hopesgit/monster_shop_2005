@@ -13,4 +13,16 @@ class Order <ApplicationRecord
   def total_order_items
     item_orders.sum(:quantity)
   end
+
+  def all_fulfilled?
+    item_orders.all? do |item_order|
+      item_order.status == "fulfilled"
+    end
+  end
+
+  def packaged_status
+    if all_fulfilled?
+      self.update(status: 1)
+    end
+  end
 end

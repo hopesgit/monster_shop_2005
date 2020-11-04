@@ -49,7 +49,6 @@ class OrdersController <ApplicationController
     redirect_to "/profile"
   end
 
-
   private
 
   def order_params
