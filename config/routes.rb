@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   # Merchants Only
   namespace :merchant do
     get "/", to: 'dashboard#show'
+    resources :orders, only: [:show]
   end
 
   # Admins Only
