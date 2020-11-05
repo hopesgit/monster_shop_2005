@@ -20,6 +20,7 @@ RSpec.describe 'Merchant Dashboard' do
       fill_in("Password", with: "#{user_2.password}")
       click_button("Submit")
     end
+
     it 'can see the merchants name and full address of the merchant' do
       visit merchant_path
 
@@ -27,7 +28,6 @@ RSpec.describe 'Merchant Dashboard' do
       within "#merchant_info" do
         expect(page).to have_content("Address: #{@bike_shop.full_address}")
       end
-      save_and_open_page
     end
   end
 end
