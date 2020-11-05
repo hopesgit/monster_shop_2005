@@ -72,8 +72,12 @@ describe "As an Admin user" do
       expect(current_path).to eq("/admin/users/#{@order_2.user_id}")
     end
 
-    xit "the orders are sorted by status (packaged, then pending, then shipped, then cancelled)" do
-
+    it "the orders are sorted by status (packaged, then pending, then shipped, then cancelled)" do
+      expect(page.all("section")[0]).to have_content("Packaged Orders:")
+      expect(page.all("section")[1]).to have_content("Pending Orders:")
+      expect(page.all("section")[2]).to have_content("Order ID:")
+      expect(page.all("section")[4]).to have_content("Shipped Orders:")
+      expect(page.all("section")[5]).to have_content("Cancelled Orders:")
     end
   end
 end
