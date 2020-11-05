@@ -3,6 +3,7 @@
   <h4>Address: <%= @user.merchant.full_address %></h4>
 </section>
 
+<h4><%= link_to 'My Items', merchant_items_path %></h4>
 <h3>Pending Orders: </h3>
 <% @orders.each do |order| %>
   <section id='order-<%= order.id %>'>
