@@ -1,4 +1,14 @@
-<h1><%= @merchant.name %>'s Dashboard</h1>
+<h1><%= @user.merchant.name %>'s Dashboard</h1>
 <section id="merchant_info">
-  <h3>Address: <%= @merchant.full_address %></h3>
+  <h4>Address: <%= @user.merchant.full_address %></h4>
 </section>
+
+<h3>Pending Orders: </h3>
+<% @orders.each do |order| %>
+  <section id='order-<%= order.id %>'>
+    <p>Order ID: <%= link_to "#{order.id}", "/merchant/orders/#{order.id}" %></p>
+    <p>Created On: <%= order.created_at.localtime.strftime('%m/%d/%y') %></p>
+    <p>Total Number of Items in Order: <%= order.total_order_items %></p>
+    <p>Grand Total: <%= number_to_currency(order.grandtotal) %></p>
+  </section>
+<% end %>
