@@ -105,6 +105,18 @@ describe Order, type: :model do
 
       @order_3.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 3, status: "fulfilled")
       @order_3.packaged_status
+
+      @order_4 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: @user_1.id, status: 2)
+
+      @order_4.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, status: "fulfilled")
+
+      @order_4.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 3, status: "fulfilled")
+
+      @order_5 = Order.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033, user_id: @user_1.id, status: 3)
+
+      @order_5.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3, status: "unfulfilled")
+
+      @order_5.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 3, status: "unfulfilled")
     end
 
     it '.packaged_orders' do
@@ -118,6 +130,20 @@ describe Order, type: :model do
       pending = Order.pending_orders
 
       test = pending.all? {|order| order.pending?}
+      expect(test).to eq(true)
+    end
+
+    it '.shipped_orders' do
+      shipped = Order.shipped_orders
+
+      test = shipped.all? {|order| order.shipped?}
+      expect(test).to eq(true)
+    end
+
+    it '.cancelled_orders' do
+      cancelled = Order.cancelled_orders
+
+      test = cancelled.all? {|order| order.cancelled?}
       expect(test).to eq(true)
     end
   end
