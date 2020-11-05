@@ -33,4 +33,12 @@ class Order <ApplicationRecord
   def self.pending_orders
     self.where(status: "pending")
   end
+
+  def self.shipped_orders
+    self.where(status: "shipped")
+  end
+
+  def self.cancelled_orders
+    self.where(status: "cancelled")
+  end
 end
