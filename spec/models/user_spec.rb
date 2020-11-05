@@ -10,7 +10,13 @@ RSpec.describe User, type: :model do
     it {should validate_presence_of(:email_address)}
     it {should validate_uniqueness_of(:email_address)}
     it {should validate_presence_of(:password)}
+    it { should have_secure_password }
+  end
+
+  describe 'relationships' do
     it {should have_many :orders}
+    # it { should validate_acceptance_of :merchant }
+    # it { should allow_value :merchant }
   end
 
   describe "roles" do
