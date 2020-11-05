@@ -66,5 +66,8 @@ describe Merchant, type: :model do
       expect(@meg.distinct_cities).to include("Hershey")
     end
 
+    it 'full_address' do
+      expect(@meg.full_address).to include('123 Bike Rd., Denver, CO, 80203')
+    end
   end
 end
