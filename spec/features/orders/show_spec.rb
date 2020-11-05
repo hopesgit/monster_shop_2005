@@ -113,5 +113,35 @@ describe "As a registered user" do
       item_1.reload
       expect(item_1.inventory).to eq(item_1_inventory_before_delete + item_1_order_quantity)
     end
+
+    it "can't be cancelled if it's already shipped" do
+      mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+      tire = meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+      paper = mike.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
+      pencil = mike.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
+      user_1 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80111,
+                            email_address: "George87@example.com",
+                            password: "superEasyPZ")
+      order_1 = Order.create!(name: "George",
+                            address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80111,
+                            user_id: user_1.id,
+                            status: 2)
+      order_1.item_orders.create(item_id: tire.id, price: tire.price, quantity: "5", status: "fulfilled")
+      order_1.item_orders.create(item_id: pencil.id, price: pencil.price, quantity: "20", status: "fulfilled")
+
+      visit("/profile/orders/#{order_1.id}")
+
+      expect(page).to have_link("Cancel Order")
+      click_link("Cancel Order")
+      expect(page).to have_content("Package has already shipped and cannot be cancelled.")
+    end
   end
 end

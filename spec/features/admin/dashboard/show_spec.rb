@@ -79,5 +79,37 @@ describe "As an Admin user" do
       expect(page.all("section")[4]).to have_content("Shipped Orders:")
       expect(page.all("section")[5]).to have_content("Cancelled Orders:")
     end
+
+    it "has a button for me to ship the order, for each order, and this changes the status to 'shipped'" do
+      @order_2.packaged_status
+
+      visit admin_path
+
+      within "#order-#{@order_2.id}" do
+        expect(page).to have_button("Ship")
+        click_button "Ship"
+      end
+
+      expect(page).to have_content("Order shipped.")
+
+      @order_2.reload
+
+      expect(@order_2.shipped?).to eq(true)
+      
+      within "#order-#{@order_1.id}" do
+        expect(page).to have_button("Ship")
+        click_button "Ship"
+      end
+
+      expect(page).to have_content("Order shipped.")
+
+      @order_1.reload
+
+      expect(@order_1.shipped?).to eq(true)
+    end
+
+    it "keeps the user from being able to cancel it" do
+
+    end
   end
 end
