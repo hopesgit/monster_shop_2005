@@ -55,7 +55,7 @@ describe "As an Admin user" do
           expect(page).to have_content("User name: #{@order_1.user.name}")
           expect(page).to have_link(@order_1.user.name)
           expect(page).to have_content("Order ID: #{@order_1.id}")
-          expect(page).to have_content("Date created: #{@order_1.created_at}")
+          expect(page).to have_content("Date created: #{@order_1.created_at.localtime.strftime("%m/%d/%y")}")
         end
       end
 
@@ -64,7 +64,7 @@ describe "As an Admin user" do
           expect(page).to have_content("User name: #{@order_2.user.name}")
           expect(page).to have_link(@order_2.user.name)
           expect(page).to have_content("Order ID: #{@order_2.id}")
-          expect(page).to have_content("Date created: #{@order_2.created_at}")
+          expect(page).to have_content("Date created: #{@order_2.created_at.localtime.strftime("%m/%d/%y")}")
           click_link(@order_2.user.name)
         end
       end
@@ -95,7 +95,7 @@ describe "As an Admin user" do
       @order_2.reload
 
       expect(@order_2.shipped?).to eq(true)
-      
+
       within "#order-#{@order_1.id}" do
         expect(page).to have_button("Ship")
         click_button "Ship"

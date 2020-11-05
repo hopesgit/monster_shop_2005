@@ -103,7 +103,7 @@ RSpec.describe("Order Creation") do
 
       within "#order-details" do
         expect(page).to have_content("Total: $142")
-        expect(page).to have_content(new_order.created_at)
+        expect(page).to have_content(new_order.created_at.localtime.strftime("%m/%d/%y"))
       end
     end
 
