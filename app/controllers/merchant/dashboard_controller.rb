@@ -2,8 +2,8 @@ class Merchant::DashboardController < ApplicationController
   before_action :require_merchant
 
   def show
-    binding.pry
-    @merchant = Merchant.find(current_user.id)
+    # binding.pry
+    @merchant = Merchant.find(current_user.merchant_id)
   end
 
   private
