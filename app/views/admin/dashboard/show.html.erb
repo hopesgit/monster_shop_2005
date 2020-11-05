@@ -10,7 +10,7 @@
       <section id="order-<%= order.id %>">
         <p>User name: <%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></p>
         <p>Order ID: <%= order.id %></p>
-        <p>Date created: <%= order.created_at %></p>
+        <p>Date created: <%= order.created_at.localtime.strftime("%m/%d/%y") %></p>
         <%= button_to "Ship", admin_order_path(order.id), method: :patch %>
         <p>---------</p>
       </section>
@@ -27,7 +27,7 @@
       <section id="order-<%= order.id %>">
         <p>User name: <%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></p>
         <p>Order ID: <%= order.id %></p>
-        <p>Date created: <%= order.created_at %></p>
+        <p>Date created: <%= order.created_at.localtime.strftime("%m/%d/%y") %></p>
         <%= button_to "Ship", admin_order_path(order.id), method: :patch %>
         <p>---------</p>
       </section>
@@ -44,7 +44,7 @@
       <section id="order-<%= order.id %>">
         <p>User name: <%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></p>
         <p>Order ID: <%= order.id %></p>
-        <p>Date created: <%= order.created_at %></p>
+        <p>Date created: <%= order.created_at.localtime.strftime("%m/%d/%y") %></p>
         <%= button_to "Ship", admin_order_path(order.id), method: :patch %>
         <p>---------</p>
       </section>
@@ -61,7 +61,7 @@
       <section id="order-<%= order.id %>">
         <p>User name: <%= link_to "#{order.user.name}", "/admin/users/#{order.user.id}" %></p>
         <p>Order ID: <%= order.id %></p>
-        <p>Date created: <%= order.created_at %></p>
+        <p>Date created: <%= order.created_at.localtime.strftime("%m/%d/%y") %></p>
         <%= button_to "Ship", admin_order_path(order.id), method: :patch %>
         <p>---------</p>
       </section>
