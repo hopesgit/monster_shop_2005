@@ -62,6 +62,6 @@ Rails.application.routes.draw do
   # Admins Only
   namespace :admin do
     get "/", to: 'dashboard#show'
-    get "/users", to: 'users#index'
+    resources :users, only: [:index, :show]
   end
 end

@@ -25,4 +25,12 @@ class Order <ApplicationRecord
       self.update(status: 1)
     end
   end
+
+  def self.packaged_orders
+    self.where(status: "packaged")
+  end
+
+  def self.pending_orders
+    self.where(status: "pending")
+  end
 end
