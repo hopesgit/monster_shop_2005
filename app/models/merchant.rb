@@ -25,4 +25,7 @@ class Merchant <ApplicationRecord
     item_orders.distinct.joins(:order).pluck(:city)
   end
 
+  def full_address
+    "#{self.address}, #{self.city}, #{self.state}, #{self.zip}"
+  end
 end
