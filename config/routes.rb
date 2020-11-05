@@ -51,7 +51,7 @@ Rails.application.routes.draw do
   post "/login", to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/profile/orders', to: 'users#orders_index'
-  patch "/profile/orders/:id", to: "orders#update"
+  put "/profile/orders/:id", to: "orders#update"
   get "/profile/orders/:id", to: "orders#show"
 
   # Merchants Only
@@ -63,5 +63,6 @@ Rails.application.routes.draw do
   namespace :admin do
     get "/", to: 'dashboard#show'
     resources :users, only: [:index, :show]
+    resources :orders, only: [:update]
   end
 end

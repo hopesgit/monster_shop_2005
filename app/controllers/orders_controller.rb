@@ -39,14 +39,19 @@ class OrdersController <ApplicationController
 
   def update
     order = Order.find(params[:id])
-    order.update(status: 3)
-    order.save
-    order.item_orders.each do |item_order|
-      item_order.update(status: "unfulfilled")
-      item_order.return_ordered_items
+    if !order.shipped?
+      order.update(status: 3)
+      order.save
+      order.item_orders.each do |item_order|
+        item_order.update(status: "unfulfilled")
+        item_order.return_ordered_items
+      end
+      flash[:alert] = "The order is now cancelled."
+      redirect_to "/profile"
+    else
+      flash[:warning] = "Package has already shipped and cannot be cancelled."
+      redirect_to "/profile/orders/#{order.id}"
     end
-    flash[:alert] = "The order is now cancelled."
-    redirect_to "/profile"
   end
 
   private
