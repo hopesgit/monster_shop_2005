@@ -24,7 +24,12 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
-    @user.update(user_params)
+    if @user.authenticate(user_params[:password])
+      @user.update(user_params)
+    else
+      flash[:error] = "Incorrect Password!"
+      return redirect_to '/profile/edit'
+    end
     if @user.save
       flash[:edited] = "You have successfully updated your profile"
       redirect_to "/profile"
