@@ -31,9 +31,6 @@ describe "As a user" do
       click_on "Add To Cart"
       visit "/items/#{@pencil.id}"
       click_on "Add To Cart"
-    end
-
-    it "When I click create order it takes me to my profile/orders page" do
       visit '/cart'
       click_link "Checkout"
 
@@ -44,11 +41,24 @@ describe "As a user" do
       fill_in(:zip, with: @user_1.zip)
 
       click_button("Create Order")
+    end
 
+    it "When I click create order it takes me to my profile/orders page" do
       expect(current_path).to eq('/profile/orders')
       expect(page).to have_content("#{@user_1.name}'s orders")
       expect(page).to have_content("Cart: 0")
       expect(page).to have_content("Your order has been created")
+    end
+
+    it "has the order details" do
+      current_order = Order.last
+      
+      expect(page).to have_link("Order ##{current_order.id}")
+      expect(page).to have_content("Order Date: #{current_order.created_at}")
+      expect(page).to have_content("Last Updated: #{current_order.updated_at}")
+      expect(page).to have_content("Order Status: #{current_order.status}")
+      expect(page).to have_content("Total Items: #{current_order.total_order_items}")
+      expect(page).to have_content("Grand Total: $#{current_order.grandtotal}")
     end
   end
 end

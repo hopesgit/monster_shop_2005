@@ -39,8 +39,6 @@ Rails.application.routes.draw do
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
-
   # Users
   get "/register", to: "users#new"
   post '/register', to: 'users#create'
@@ -53,6 +51,8 @@ Rails.application.routes.draw do
   post "/login", to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/profile/orders', to: 'users#orders_index'
+  put "/profile/orders/:id", to: "orders#update"
+  get "/profile/orders/:id", to: "orders#show"
 
   # Merchants Only
   namespace :merchant do
@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   # Admins Only
   namespace :admin do
     get "/", to: 'dashboard#show'
-    get "/users", to: 'users#index'
+    resources :users, only: [:index, :show]
+    resources :orders, only: [:update]
   end
 end

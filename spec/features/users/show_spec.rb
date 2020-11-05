@@ -163,5 +163,26 @@ describe 'User Show Page' do
       expect(current_path).to eq('/profile/edit')
       expect(page).to have_content("Please select a unique email!")
     end
+
+    it "has a link to the user's profile/orders page" do
+      user_2 = User.create!(name: "George",
+                            street_address: "123 lane",
+                            city: "Denver",
+                            state: "CO",
+                            zip: 80111,
+                            email_address: "George@example.com",
+                            password: "superEasyPZ")
+                            visit "/login"
+
+      click_link "Log In"
+      fill_in("Email Address", with: "#{user_2.email_address}")
+      fill_in("Password", with: "#{user_2.password}")
+      click_button("Submit")
+      visit ("/profile")
+
+      expect(page).to have_link("My Orders")
+      click_link("My Orders")
+      expect(current_path).to eq("/profile/orders")
+    end
   end
 end

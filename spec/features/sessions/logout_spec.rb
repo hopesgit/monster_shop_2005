@@ -17,7 +17,6 @@ RSpec.describe 'Logout' do
       fill_in("Email Address", with: "#{@user_3.email_address}")
       fill_in("Password", with: @user_3.password)
       click_button("Submit")
-      # save_and_open_page
 
     end
     it 'can get redirected to the home page' do

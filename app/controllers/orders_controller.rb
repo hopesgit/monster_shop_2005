@@ -24,6 +24,11 @@ class OrdersController <ApplicationController
           })
       end
       session.delete(:cart)
+
+      order.item_orders.each do |item_order|
+        item_order.check_out_items
+      end
+
       flash[:message] = "Your order has been created"
       redirect_to "/profile/orders"
     else
@@ -32,6 +37,22 @@ class OrdersController <ApplicationController
     end
   end
 
+  def update
+    order = Order.find(params[:id])
+    if !order.shipped?
+      order.update(status: 3)
+      order.save
+      order.item_orders.each do |item_order|
+        item_order.update(status: "unfulfilled")
+        item_order.return_ordered_items
+      end
+      flash[:alert] = "The order is now cancelled."
+      redirect_to "/profile"
+    else
+      flash[:warning] = "Package has already shipped and cannot be cancelled."
+      redirect_to "/profile/orders/#{order.id}"
+    end
+  end
 
   private
 
