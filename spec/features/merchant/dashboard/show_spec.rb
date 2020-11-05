@@ -63,7 +63,7 @@ RSpec.describe 'Merchant Dashboard' do
       expect(page).to have_link('My Items')
       click_link 'My Items'
       expect(current_path).to eq(merchant_items_path)
-save_and_open_page
+
       within "#item-#{@tire.id}" do
         expect(page).to have_content("Name: #{@tire.name}")
       end
