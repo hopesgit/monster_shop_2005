@@ -39,6 +39,22 @@ Monster Shop is a representation of a large-scale, e-commerce web site. The site
 -Followed MVC principles
 -Utitlized and followed basic HTML and CSS conventions to render view templates
 
+**Screenshots**
+
+![image](https://user-images.githubusercontent.com/66448493/98321252-d80f2900-1fa1-11eb-9117-f06573eb9ad0.png)
+
+![image](https://user-images.githubusercontent.com/66448493/98320969-3daee580-1fa1-11eb-94d8-dbbd353d7475.png)
+
+![image](https://user-images.githubusercontent.com/66448493/98320900-1bb56300-1fa1-11eb-9959-e0d701b925b6.png)
+
+![image](https://user-images.githubusercontent.com/66448493/98321071-6a62fd00-1fa1-11eb-9ca9-37c263212108.png)
+
+![image](https://user-images.githubusercontent.com/66448493/98321201-b0b85c00-1fa1-11eb-9561-f963fdd24560.png)
+
+
+
+
+
 
 
 
