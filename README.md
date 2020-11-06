@@ -1,3 +1,66 @@
+## Monster Shop
+
+Monster Shop is a representation of a large-scale, e-commerce web site. The site serves individual users, administators, and merchants, along with their respective merchant stores. The application attempts to replicate the experience that each type of user may encounter as they interact with a real-world merchant retail site.
+
+
+## Schema
+
+![alt text](https://user-images.githubusercontent.com/58994078/98318659-4e109180-1f9c-11eb-9be6-a84f37d52b0f.png)
+
+## User Roles
+
+
+**Visitor / User** - A Visitor has the ability to browse the site and its individual merchant stores. In order to add items to a cart and make a purchase, the Visitor must be logged into an active User account. If I do not have an account, one must be created with personal information and a unique email address and password. 
+
+**Merchant** - A Merchant user has the ability to fufill orders, create/update/delete items, update merchant information, and just like a logged-in User, they can add/delete items to a cart and check out.
+
+**Admin** - An Admin user has access to all areas of the site, and the authority to ship and cancel orders, and the ability to fufill 
+
+
+## Learning Goals
+
+**Database**
+-Created Schema
+-Designed One-to-Many, Many-to-Many Relationships
+
+**Active Record** 
+-Joined multiple tables of data
+-Utilized queries to calulate and group data based on mulitple attributes
+
+**Authentication and Authorization**
+-Namespaced Routes
+-Used Sessions for login/logout functionality
+-Used Sessions for storing information
+-Limit functionality to authorized users
+-Used BCrypt to hash user passwords
+
+**Rails**
+-Used filters in Rails controller (before_action)
+-Followed MVC principles
+-Utitlized and followed basic HTML and CSS conventions to render view templates
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Monster Shop
 BE Mod 2 Week 4/5 Group Project
 
