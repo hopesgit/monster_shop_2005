@@ -24,6 +24,8 @@ describe "As an Admin" do
     it "has a disable button that, when clicked, disables a merchant account and flashes a message telling me this" do
       visit "/admin/merchants"
       expect(@bike_shop.active?).to eq(true)
+      expect(@tire.active?).to eq(true)
+      expect(@pencil.active?).to eq(true)
 
       within("#merchant-#{@bike_shop.id}") do
         expect(page).to have_button("Disable")
@@ -32,8 +34,12 @@ describe "As an Admin" do
       end
 
       @bike_shop.reload
+      @tire.reload
+      @pencil.reload
       expect(@bike_shop.active?).to eq(false)
       expect(page).to have_content("Merchant disabled.")
+      expect(@tire.active?).to eq(false)
+      expect(@pencil.active?).to eq(false)
     end
   end
 end
