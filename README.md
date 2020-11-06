@@ -3,6 +3,9 @@
 Monster Shop is a representation of a large-scale, e-commerce web site. The site serves individual users, administrators, and merchants, along with their respective merchant stores. The application attempts to replicate the experience that each type of user may encounter as they interact with a real-world merchant retail site.
 
 
+The Moster Shop is live and running @ https://monster-shop-group-2008.herokuapp.com/
+
+
 ## Schema
 
 ![alt text](https://user-images.githubusercontent.com/58994078/98318659-4e109180-1f9c-11eb-9be6-a84f37d52b0f.png)
