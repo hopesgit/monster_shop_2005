@@ -1,0 +1,7 @@
+<h2><%= current_user.merchant.name %> Items' Index Page</h2>
+
+<% @items.each do |item| %>
+  <section id="item-<%= item.id %>">
+    <p>Name: <%= item.name %></p>
+  </section>
+<% end %>

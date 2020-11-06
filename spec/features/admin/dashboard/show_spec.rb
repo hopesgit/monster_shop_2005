@@ -4,15 +4,16 @@ describe "As an Admin user" do
   describe "When I visit my dashboard" do
 
     before :each do
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @user_1 = User.create!(name: "George",
                             street_address: "123 lane",
                             city: "Denver",
                             state: "CO",
                             zip: 80111,
                             email_address: "George@example.com",
-                            password: "superEasyPZ")
+                            password: "superEasyPZ",
+                            merchant_id: @meg.id)
 
-      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       @brian = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
       @tire = @meg.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
@@ -38,7 +39,8 @@ describe "As an Admin user" do
                             zip: 80111,
                             email_address: "Todd@example.com",
                             password: "superEasyPZ",
-                            role: 2)
+                            role: 2,
+                            merchant_id: @meg.id)
 
       visit("/login")
       click_link "Log In"
@@ -55,7 +57,7 @@ describe "As an Admin user" do
           expect(page).to have_content("User name: #{@order_1.user.name}")
           expect(page).to have_link(@order_1.user.name)
           expect(page).to have_content("Order ID: #{@order_1.id}")
-          expect(page).to have_content("Date created: #{@order_1.created_at}")
+          expect(page).to have_content("Date created: #{@order_1.created_at.localtime.strftime("%m/%d/%y")}")
         end
       end
 
@@ -64,7 +66,7 @@ describe "As an Admin user" do
           expect(page).to have_content("User name: #{@order_2.user.name}")
           expect(page).to have_link(@order_2.user.name)
           expect(page).to have_content("Order ID: #{@order_2.id}")
-          expect(page).to have_content("Date created: #{@order_2.created_at}")
+          expect(page).to have_content("Date created: #{@order_2.created_at.localtime.strftime("%m/%d/%y")}")
           click_link(@order_2.user.name)
         end
       end
@@ -95,7 +97,7 @@ describe "As an Admin user" do
       @order_2.reload
 
       expect(@order_2.shipped?).to eq(true)
-      
+
       within "#order-#{@order_1.id}" do
         expect(page).to have_button("Ship")
         click_button "Ship"

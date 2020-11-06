@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   #Welcome
   root to: "welcome#index"
 
+  resources :merchants
   get "/merchants", to: "merchants#index"
   get "/merchants/new", to: "merchants#new"
   get "/merchants/:id", to: "merchants#show"
@@ -11,18 +12,21 @@ Rails.application.routes.draw do
   patch "/merchants/:id", to: "merchants#update"
   delete "/merchants/:id", to: "merchants#destroy"
 
+  resources :items
   get "/items", to: "items#index"
   get "/items/:id", to: "items#show"
   get "/items/:id/edit", to: "items#edit"
   patch "/items/:id", to: "items#update"
+  delete "/items/:id", to: "items#destroy"
+
   get "/merchants/:merchant_id/items", to: "items#index"
   get "/merchants/:merchant_id/items/new", to: "items#new"
   post "/merchants/:merchant_id/items", to: "items#create"
-  delete "/items/:id", to: "items#destroy"
 
   get "/items/:item_id/reviews/new", to: "reviews#new"
   post "/items/:item_id/reviews", to: "reviews#create"
 
+  # resources :reviews
   get "/reviews/:id/edit", to: "reviews#edit"
   patch "/reviews/:id", to: "reviews#update"
   delete "/reviews/:id", to: "reviews#destroy"
@@ -57,6 +61,8 @@ Rails.application.routes.draw do
   # Merchants Only
   namespace :merchant do
     get "/", to: 'dashboard#show'
+    resources :orders, only: [:show]
+    resources :items, only: [:index]
   end
 
   # Admins Only
@@ -64,5 +70,9 @@ Rails.application.routes.draw do
     get "/", to: 'dashboard#show'
     resources :users, only: [:index, :show]
     resources :orders, only: [:update]
+    get '/merchants', to: 'merchants#index'
+    patch '/merchants/:merchant_id', to: 'merchants#update'
+    get '/merchants/:merchant_id', to: 'merchants#show'
+    # resources :merchant, only: [:show, :index, :update]
   end
 end

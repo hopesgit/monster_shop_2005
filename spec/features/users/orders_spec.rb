@@ -52,10 +52,10 @@ describe "As a user" do
 
     it "has the order details" do
       current_order = Order.last
-      
+
       expect(page).to have_link("Order ##{current_order.id}")
-      expect(page).to have_content("Order Date: #{current_order.created_at}")
-      expect(page).to have_content("Last Updated: #{current_order.updated_at}")
+      expect(page).to have_content("Order Date: #{current_order.created_at.localtime.strftime("%m/%d/%y")}")
+      expect(page).to have_content("Last Updated: #{current_order.updated_at.localtime.strftime("%m/%d/%y")}")
       expect(page).to have_content("Order Status: #{current_order.status}")
       expect(page).to have_content("Total Items: #{current_order.total_order_items}")
       expect(page).to have_content("Grand Total: $#{current_order.grandtotal}")

@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :orders 
+  has_many :orders
 
   validates_presence_of :name
   validates_presence_of :street_address
@@ -10,4 +10,6 @@ class User < ApplicationRecord
   validates_presence_of :password, require: true
   enum role: %w(default merchant admin)
   has_secure_password
+
+  belongs_to :merchant, optional: true
 end
