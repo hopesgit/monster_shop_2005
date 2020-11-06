@@ -26,7 +26,6 @@ describe "As an Admin" do
       expect(@bike_shop.active?).to eq(true)
       expect(@tire.active?).to eq(true)
       expect(@pencil.active?).to eq(true)
-      save_and_open_page
 
       within("#merchant-#{@bike_shop.id}") do
         expect(page).to have_button("Disable")
@@ -40,7 +39,6 @@ describe "As an Admin" do
       expect(page).to have_content("Merchant disabled.")
       expect(@tire.active?).to eq(false)
       expect(@pencil.active?).to eq(false)
-      save_and_open_page
 
       within("#merchant-#{@bike_shop.id}") do
         expect(page).to have_button("Enable")

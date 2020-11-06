@@ -40,7 +40,6 @@ describe 'As an Admin' do
 
   it 'can click on any merchants name and be routed to that unique merchants dashboard page and I can do all the functions of a merchant' do
     visit '/admin/merchants'
-# save_and_open_page
     expect(page).to have_link("#{@bike_shop.name}")
     click_on "#{@bike_shop.name}"
 
