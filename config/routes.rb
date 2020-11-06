@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show]
     resources :orders, only: [:update]
     get '/merchants', to: 'merchants#index'
+    patch '/merchants/:merchant_id', to: 'merchants#update'
     get '/merchants/:merchant_id', to: 'merchants#show'
     # resources :merchant, only: [:show, :index, :update]
   end
