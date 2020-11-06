@@ -10,8 +10,7 @@ describe "As a User" do
                             state: "CO",
                             zip: 80111,
                             email_address: "George@example.com",
-                            password: "superEasyPZ",
-                            merchant_id: @bike_shop.id)
+                            password: "superEasyPZ")
       visit "/login"
 
       click_link "Log In"
