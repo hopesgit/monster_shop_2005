@@ -32,7 +32,7 @@ RSpec.describe 'Merchant Dashboard' do
     end
 
     it 'can see the merchants name and full address of the merchant' do
-      visit merchant_path
+      visit merchant_path(@bike_shop)
 
       expect(page).to have_content("#{@bike_shop.name}'s Dashboard")
       within "#merchant_info" do
@@ -73,7 +73,4 @@ RSpec.describe 'Merchant Dashboard' do
       end
     end
   end
-
-
-  # end
 end
