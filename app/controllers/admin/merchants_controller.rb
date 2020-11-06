@@ -13,6 +13,10 @@ class Admin::MerchantsController < Admin::DashboardController
     merchant = Merchant.find(params[:merchant_id])
     merchant.update(active?: false)
     merchant.save
+    merchant.items.each do |item|
+      item.update(active?: false)
+      item.save
+    end
     flash[:success] = "Merchant disabled."
     redirect_to "/admin/merchants"
   end
