@@ -19,6 +19,7 @@ RSpec.describe 'Cart show' do
     end
 
     it 'Theres a link to checkout' do
+      @meg = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
       user_2 = User.create!(name: "Hope",
                             street_address: "456 Space st",
                             city: "Space",
@@ -26,13 +27,14 @@ RSpec.describe 'Cart show' do
                             zip: 80111,
                             email_address: "Hope@example.com",
                             password: "superEasyPZ",
-                            role: 1)
+                            role: 1,
+                            merchant_id: @meg.id)
       visit "/login"
 
       click_link "Log In"
       fill_in("Email Address", with: "#{user_2.email_address}")
       fill_in("Password", with: "#{user_2.password}")
-      click_button("Submit")                      
+      click_button("Submit")
       visit "/cart"
 
       expect(page).to have_link("Checkout")
