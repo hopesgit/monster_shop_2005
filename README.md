@@ -7,7 +7,9 @@ The Moster Shop is live and running @ https://monster-shop-group-2008.herokuapp.
 
 ## Group Members
 https://github.com/hopesgit
+
 https://github.com/GeorgieGirl24
+
 https://github.com/Todd-Estes
 
 ## Schema
