@@ -14,7 +14,10 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email_address: params[:email_address])
-    if user.authenticate(params[:password]) && user.default?
+    if user.nil?
+      flash.now[:error] = "That username cannot be found."
+      render :new
+    elsif user.authenticate(params[:password]) && user.default?
       session[:user_id] = user.id
       redirect_to "/profile"
     elsif user.authenticate(params[:password]) && user.merchant?
