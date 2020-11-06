@@ -5,6 +5,10 @@ Monster Shop is a representation of a large-scale, e-commerce web site. The site
 
 The Moster Shop is live and running @ https://monster-shop-group-2008.herokuapp.com/
 
+## Group Members
+https://github.com/hopesgit
+https://github.com/GeorgieGirl24
+https://github.com/Todd-Estes
 
 ## Schema
 
