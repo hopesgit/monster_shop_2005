@@ -18,23 +18,35 @@ Monster Shop is a representation of a large-scale, e-commerce web site. The site
 ## Learning Goals
 
 **Database**
+
 -Created Schema
+
 -Designed One-to-Many, Many-to-Many Relationships
 
 **Active Record** 
+
 -Joined multiple tables of data
+
 -Utilized queries to calulate and group data based on mulitple attributes
 
 **Authentication and Authorization**
+
 -Namespaced Routes
+
 -Used Sessions for login/logout functionality
+
 -Used Sessions for storing information
+
 -Limited functionality to authorized users
+
 -Used BCrypt to hash user passwords
 
 **Rails**
+
 -Used filters in Rails controller (before_action)
+
 -Followed MVC principles
+
 -Utitlized and followed basic HTML and CSS conventions to render view templates
 
 ## Screenshots
