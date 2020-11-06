@@ -65,6 +65,7 @@ describe "As a User" do
 
   describe 'As a merchant' do
     it 'can get redirected to the merchants dashboard' do
+      @bike_shop = Merchant.create(name: "Brian's Bike Shop", address: '123 Bike Rd.', city: 'Richmond', state: 'VA', zip: 23137)
       user_3 = User.create!(name: "Hope",
                             street_address: "222 Hope Ln",
                             city: "Denver",
@@ -72,7 +73,8 @@ describe "As a User" do
                             zip: 80112,
                             email_address: "hope1@example.com",
                             password: "supersecret",
-                            role: 1)
+                            role: 1,
+                            merchant_id: @bike_shop.id)
       visit "/login"
 
       fill_in("Email Address", with: "#{user_3.email_address}")
