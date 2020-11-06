@@ -52,6 +52,7 @@ The Moster Shop is live and running @ https://monster-shop-group-2008.herokuapp.
 
 -Utitlized and followed basic HTML and CSS conventions to render view templates
 
+
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/66448493/98321252-d80f2900-1fa1-11eb-9117-f06573eb9ad0.png)
