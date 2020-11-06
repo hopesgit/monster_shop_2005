@@ -20,13 +20,15 @@ describe "At various user levels" do
 
   describe "As a User" do
     it "gives you a 404 error when going to these pages" do
+      @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       user_2 = User.create!(name: "George",
                             street_address: "123 lane",
                             city: "Denver",
                             state: "CO",
                             zip: 80111,
                             email_address: "Todd@example.com",
-                            password: "superEasyPZ")
+                            password: "superEasyPZ",
+                            merchant_id: @mike.id)
 
       visit "/items"
       click_link "Log In"
