@@ -42,7 +42,8 @@ RSpec.describe "As a visitor" do
                             zip: 80111,
                             email_address: "Hope@example.com",
                             password: "superEasyPZ",
-                            role: 1)
+                            role: 1,
+                            merchant_id: mike.id)
 
       visit "/login"
 
