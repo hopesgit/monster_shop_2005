@@ -11,6 +11,14 @@ class Admin::MerchantsController < Admin::DashboardController
 
   def update
     merchant = Merchant.find(params[:merchant_id])
+    if merchant.active?
+      disable(merchant)
+    else
+      enable(merchant)
+    end
+  end
+
+  def disable(merchant)
     merchant.update(active?: false)
     merchant.save
     merchant.items.each do |item|
@@ -18,6 +26,17 @@ class Admin::MerchantsController < Admin::DashboardController
       item.save
     end
     flash[:success] = "Merchant disabled."
+    redirect_to "/admin/merchants"
+  end
+
+  def enable(merchant)
+    merchant.update(active?: true)
+    merchant.save
+    merchant.items.each do |item|
+      item.update(active?: true)
+      item.save
+    end
+    flash[:success] = "Merchant re-enabled."
     redirect_to "/admin/merchants"
   end
 end
