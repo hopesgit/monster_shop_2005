@@ -1,6 +1,6 @@
 ## Monster Shop
 
-Monster Shop is a representation of a large-scale, e-commerce web site. The site serves individual users, administators, and merchants, along with their respective merchant stores. The application attempts to replicate the experience that each type of user may encounter as they interact with a real-world merchant retail site.
+Monster Shop is a representation of a large-scale, e-commerce web site. The site serves individual users, administrators, and merchants, along with their respective merchant stores. The application attempts to replicate the experience that each type of user may encounter as they interact with a real-world merchant retail site.
 
 
 ## Schema
@@ -9,13 +9,11 @@ Monster Shop is a representation of a large-scale, e-commerce web site. The site
 
 ## User Roles
 
-
-**Visitor / User** - A Visitor has the ability to browse the site and its individual merchant stores. In order to add items to a cart and make a purchase, the Visitor must be logged into an active User account. If I do not have an account, one must be created with personal information and a unique email address and password. 
+**Visitor / User** - A Visitor has the ability to browse the site and its individual merchant stores. In order to add items to a cart and make a purchase, the Visitor must be logged into an active User account. If the Visitor does not have an account, one must be created with personal information and a unique email address and password. 
 
 **Merchant** - A Merchant user has the ability to fufill orders, create/update/delete items, update merchant information, and just like a logged-in User, they can add/delete items to a cart and check out.
 
-**Admin** - An Admin user has access to all areas of the site, and the authority to ship and cancel orders, and the ability to fufill 
-
+**Admin** - An Admin user has access to all areas of the site, and the authority to ship and cancel orders.
 
 ## Learning Goals
 
@@ -31,7 +29,7 @@ Monster Shop is a representation of a large-scale, e-commerce web site. The site
 -Namespaced Routes
 -Used Sessions for login/logout functionality
 -Used Sessions for storing information
--Limit functionality to authorized users
+-Limited functionality to authorized users
 -Used BCrypt to hash user passwords
 
 **Rails**
