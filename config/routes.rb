@@ -3,33 +3,38 @@ Rails.application.routes.draw do
   #Welcome
   root to: "welcome#index"
 
-  resources :merchants
-  get "/merchants", to: "merchants#index"
-  get "/merchants/new", to: "merchants#new"
-  get "/merchants/:id", to: "merchants#show"
-  post "/merchants", to: "merchants#create"
-  get "/merchants/:id/edit", to: "merchants#edit"
-  patch "/merchants/:id", to: "merchants#update"
-  delete "/merchants/:id", to: "merchants#destroy"
+  resources :merchants do
+    resources :items, only: [:index, :new, :create]
+  end
+  # get "/merchants", to: "merchants#index"
+  # get "/merchants/new", to: "merchants#new"
+  # get "/merchants/:id", to: "merchants#show"
+  # post "/merchants", to: "merchants#create"
+  # get "/merchants/:id/edit", to: "merchants#edit"
+  # patch "/merchants/:id", to: "merchants#update"
+  # delete "/merchants/:id", to: "merchants#destroy"
 
-  resources :items
-  get "/items", to: "items#index"
-  get "/items/:id", to: "items#show"
-  get "/items/:id/edit", to: "items#edit"
-  patch "/items/:id", to: "items#update"
-  delete "/items/:id", to: "items#destroy"
+  # get "/merchants/:merchant_id/items", to: "items#index"
+  # get "/merchants/:merchant_id/items/new", to: "items#new"
+  # post "/merchants/:merchant_id/items", to: "items#create"
 
-  get "/merchants/:merchant_id/items", to: "items#index"
-  get "/merchants/:merchant_id/items/new", to: "items#new"
-  post "/merchants/:merchant_id/items", to: "items#create"
+  resources :items, except: [:create, :new] do
+    resources :reviews, only: [:new, :create]
+  end
+  # get "/items", to: "items#index"
+  # get "/items/:id/edit", to: "items#edit"
+  # patch "/items/:id", to: "items#update"
+  # get "/items/:id", to: "items#show"
+  # delete "/items/:id", to: "items#destroy"
 
-  get "/items/:item_id/reviews/new", to: "reviews#new"
-  post "/items/:item_id/reviews", to: "reviews#create"
 
-  # resources :reviews
-  get "/reviews/:id/edit", to: "reviews#edit"
-  patch "/reviews/:id", to: "reviews#update"
-  delete "/reviews/:id", to: "reviews#destroy"
+  # get "/items/:item_id/reviews/new", to: "reviews#new"
+  # post "/items/:item_id/reviews", to: "reviews#create"
+
+  resources :reviews, only: [:edit, :update, :destroy]
+  # get "/reviews/:id/edit", to: "reviews#edit"
+  # patch "/reviews/:id", to: "reviews#update"
+  # delete "/reviews/:id", to: "reviews#destroy"
 
   #cart
   post "/cart/:item_id", to: "cart#add_item"
@@ -43,6 +48,7 @@ Rails.application.routes.draw do
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
+  
   # Users
   get "/register", to: "users#new"
   post '/register', to: 'users#create'
