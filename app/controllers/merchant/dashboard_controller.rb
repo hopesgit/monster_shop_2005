@@ -2,8 +2,13 @@ class Merchant::DashboardController < ApplicationController
   before_action :require_merchant
 
   def show
-    @user = current_user
-    @orders = @user.orders.where(status: 'pending')
+    if current_user.admin?
+      @merchant = Merchant.find(params[:merchant_id])
+    else
+      @user = current_user
+      @merchant = @user.merchant
+      @orders = @user.orders.where(status: 'pending')
+    end
   end
 
   private

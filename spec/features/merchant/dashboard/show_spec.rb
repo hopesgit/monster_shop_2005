@@ -42,7 +42,7 @@ RSpec.describe 'Merchant Dashboard' do
 
     it 'can see the pending orders that I sell. I will see a list that includes: link of order_id, date of order, total quantity, and total value of the order' do
       test = @order_1.grandtotal
-      visit merchant_path
+      visit merchant_path(@bike_shop)
 
       expect(page).to have_content('Pending Orders:')
       within "#order-#{@order_1.id}" do
@@ -58,7 +58,7 @@ RSpec.describe 'Merchant Dashboard' do
     end
 
     it 'can see a link to my all the items I have for sale' do
-      visit merchant_path
+      visit merchant_path(@bike_shop)
 
       expect(page).to have_link('My Items')
       click_link 'My Items'

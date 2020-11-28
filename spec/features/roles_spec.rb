@@ -71,7 +71,7 @@ describe "At various user levels" do
   end
 
   describe "As an Admin" do
-    it "can't access merchant links or the cart" do
+    it "can't access the cart" do
       @mike = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
       user_4 = User.create!(name: "Todd",
                             street_address: "999 Nine Ln",
@@ -86,10 +86,6 @@ describe "At various user levels" do
       fill_in("Email Address", with: "#{user_4.email_address}")
       fill_in("Password", with: "#{user_4.password}")
       click_on "Submit"
-
-      visit "/merchant"
-
-      expect(page).to have_content("The page you were looking for doesn't exist (404)")
 
       visit "/cart"
 
