@@ -1,6 +1,6 @@
 <h1><%= @merchant.name %>'s Dashboard</h1>
 <section id="merchant_info">
-  <h4>Address: <%= @user.merchant.full_address %></h4>
+  <h4>Address: <%= @merchant.full_address %></h4>
 </section>
 
 <h4><%= link_to 'My Items', merchant_items_path(@merchant) %></h4>
